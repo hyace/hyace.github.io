@@ -1,1 +1,1 @@
-Try to setup a octopress blog.
+Try to setup an octopress blog.
