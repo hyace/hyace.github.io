@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Hyace]]></title>
+  <link href="http://hyace.github.io/feed" rel="self"/>
+  <link href="http://hyace.github.io/"/>
+  <updated>2014-08-27T18:46:19+08:00</updated>
+  <id>http://hyace.github.io/</id>
+  <author>
+    <name><![CDATA[Hyace]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Thrift的安装以及问题]]></title>
+    <link href="http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/"/>
+    <updated>2014-08-27T13:33:42+08:00</updated>
+    <id>http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti</id>
+    <content type="html"><![CDATA[<p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
+   首先从<a href="http://incubator.apache.org/thrift/download/">这里下载</a>到Thrift的包。<br/>
+   Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。<br/>
+   解压安装包，进入，运行：</p>
+
+<pre><code>./configure  
+make  
+make install  
+</code></pre>
+
+<p>   大体步骤是这样，但是中间遇到了很多问题。最主要的一个是在make的时候，运<br/>
+   行ruby的bunble这一步出错，显示如下：</p>
+
+<pre><code>Bundler could not find compatible versions for gem "bundler":
+  In Gemfile:
+      bundler (~&gt; 1.3.1) ruby
+
+    Current Bundler version:
+      bundler (1.7.2)
+
+This Gemfile requires a different version of Bundler.
+Perhaps you need to update Bundler by running `gem install bundler`?  
+</code></pre>
+
+<p>   Stackoverflow上的答案是<a href="http://stackoverflow.com/questions/12092928/how-to-bundle-install-when-your-gemfile-requires-an-older-version-of-bundler">这样</a>：</p>
+
+<pre><code>% gem install bundler -v '~&gt; 1.0.0'
+Successfully installed bundler-1.0.22
+Then force rubygems to use the version you want (see this post):
+
+% bundle _1.0.22_ install  
+</code></pre>
+
+<p>   这个也是版本不对，只不过不是1.3.1的，但是执行了始终不对。装了1.3.1的<br/>
+bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了，接着make才成<br/>
+功，之后有装回来了。<br/>
+   ps：寻找答案过程中才知道墙内有个网站叫<a href="http://segmentfault.com/">segmentfault</a>,还有个网站叫<br/>
+<a href="http://outofmemory.cn/">outofmemory</a>，方知山寨之伟大～</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu下安装Sublime3的Markdown插件]]></title>
+    <link href="http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/"/>
+    <updated>2014-08-27T01:04:21+08:00</updated>
+    <id>http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
+但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
+安装了，但是用vim打开md文件还是悄然无声。
+    据说Sublime也可以支持markdown，所以就在Ubuntu下安装了一个Sublime3.<br/>
+之后就可以安装markdown插件了。<br/>
+    按ctrl+～，输入命令：</p>
+
+<pre><code>import urllib.request,os; pf = 'Package Control.sublime-package';  
+ipp = sublime.installed_packages_path();  
+urllib.request.install_opener( urllib.request.build_opener(    \
+urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf),  \
+'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/'\
++ pf.replace(' ','%20')).read())  
+</code></pre>
+
+<p>   之后可以安ctrl+shift+p，输入命令：</p>
+
+<pre><code>package, 选择install package  
+markdown, 选择markdown preview  
+</code></pre>
+
+<p>重启sublime，打开一个md文件，输入命令：</p>
+
+<pre><code>markdown preview， 选择 preview in browser  
+</code></pre>
+
+<p>这样就可以预览了，但是不是实时的。</p>
+
+<hr />
+
+<p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
+它识别的是markdown后缀，而不是md后缀。
+pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[First Blood]]></title>
+    <link href="http://hyace.github.io/blog/2014/08/26/first-blood/"/>
+    <updated>2014-08-26T00:07:11+08:00</updated>
+    <id>http://hyace.github.io/blog/2014/08/26/first-blood</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>
