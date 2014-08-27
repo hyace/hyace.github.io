@@ -1,88 +1,107 @@
-
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html class="no-js" lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Blog Archive - Hyace</title>
-    <meta name="author" content="Hyace">
-    
-	<meta name="description" content=" 2014 Thrift的安装以及问题 Aug 27 ">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <title>Blog Archive - Hyace</title>
+  <meta name="author" content="Hyace">
 
-	<link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.ico" rel="shortcut icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+  
 
-    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+  
+  <link rel="canonical" href="http://hyace.github.io/archives">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
 
-    <!-- remove or comment it to disable ajaxification -->   
-    <script src="/javascripts/ajaxify.js"></script>
-   
-    
-    
+  <!-- http://opengraphprotocol.org/ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://hyace.github.io/archives">
+  <meta property="og:title" content="Blog Archive - Hyace">
+  
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+
+<link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+
+
+  
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  
 
 </head>
 
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hyace</a>
+        </div>
 
-<body>
-    <div id="wrapper">
-    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
-<h1 class="animated bounceInDown">
-    <div id="headerbg">
-        Hyace
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li >
+                    <a rel="index" href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:hyace.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
     </div>
-</h1>
-<br>
-
-<ul id="social-links" style="text-align:center">
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+</nav>
 
 
-<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
-<ul id="nav">
-	<li id="ajax"><a href="/index.html">Home</a></li>
-	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
-    <li><a href="/atom.xml">RSS</a></li>
-    
-    <li>
-    <div id="dark">
-        <form method="get" action="/search.html" id="search">
-            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
-        </form>
-    </div>
-    </li>
-        
-</ul>
-
-
-
-
-</header>
-
-<div id="toload">
-<!-- begin toload --> 
-    <div id="content" class="inner">
-        <article class="page">
-    
-    <h1 class="title">Blog Archive</h1>
-    
-    <div class="entry-content"><div id="blog-archives">
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article role="article">
+      
+        <header class="page-header">
+          
+          
+            <h1 class="entry-title">
+              Blog Archive
+              
+            </h1>
+          
+        </header>
+      
+      <div class="entry-content">
+        <div id="blog-archives">
 
 
 
@@ -91,18 +110,26 @@
 
 <article>
   
+<h1 itemprop="name headline"><a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/" itemprop="url">Thrift的安装以及问题</a></h1>
+<p class="meta text-muted">
+  
 
 
-<article>
-  <h2 class="title"><a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a></h2>
-	<div class="meta">
-		<span class="date">Aug 27</span>
-		<span class="tags">
 
-</span>
-	    
-	</div>
-</article>
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-27T13:33:42+08:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+  
+
+
+</p>
 
 </article>
 
@@ -110,18 +137,26 @@
 
 <article>
   
+<h1 itemprop="name headline"><a href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/" itemprop="url">Ubuntu下安装Sublime3的Markdown插件</a></h1>
+<p class="meta text-muted">
+  
 
 
-<article>
-  <h2 class="title"><a href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">Ubuntu下安装Sublime3的Markdown插件</a></h2>
-	<div class="meta">
-		<span class="date">Aug 27</span>
-		<span class="tags">
 
-</span>
-	    
-	</div>
-</article>
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-27T01:04:21+08:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+  
+
+
+</p>
 
 </article>
 
@@ -129,71 +164,92 @@
 
 <article>
   
+<h1 itemprop="name headline"><a href="/blog/2014/08/26/first-blood/" itemprop="url">First Blood</a></h1>
+<p class="meta text-muted">
+  
 
 
-<article>
-  <h2 class="title"><a href="/blog/2014/08/26/first-blood/">First Blood</a></h2>
-	<div class="meta">
-		<span class="date">Aug 26</span>
-		<span class="tags">
 
-</span>
-	    
-	</div>
-</article>
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-26T00:07:11+08:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+  
+
+
+</p>
 
 </article>
 
 </div>
+
+      </div>
+      
+    </article>
+    
+  </div>
+
+  
+    <aside class="sidebar col-md-3">
+      
+        <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a>
+    
+    <a class="list-group-item " href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">Ubuntu下安装Sublime3的Markdown插件</a>
+    
+    <a class="list-group-item " href="/blog/2014/08/26/first-blood/">First Blood</a>
+    
+  </div>
+</section>
+
+
+
+
+
+
+      
+    </aside>
+  
 </div>
-</article>
 
-	<div class="share">
-	<div class="addthis_toolbox addthis_default_style ">
-	
-	
-	
-	<a class="addthis_counter addthis_pill_style"></a>
-	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
-</div>
-
-
-
-
+        </div>
+      </div>
     </div>
-    <footer id="footer">
-    <div style="display:inline">
-    Copyright &copy; 2014
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - Hyace<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
 
-    Hyace
-. Powered by <a href="http://octopress.org">Octopress</a> | 
-    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
 </div>
-
-
-    </footer>
-    <script src="/javascripts/fabric.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</footer>
+    
 
 
 
 
 
 
-<!-- end toload --> 
-</div>
-</div>
-<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
-/*]]>*/
-</script><!-- remove it to remove the scroll to top button -->
-</body>
+
+
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+  </body>
 </html>
