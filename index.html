@@ -1,61 +1,98 @@
 
-<!doctype html>
-<!-- START OF _layouts/default.html -->
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" >
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<meta content="" name="description">
-		<meta content="Hyace" name="author">
-		
-		<title>Hyace</title>
-		
-		<!-- Styles -->
-		<link href="/stylesheets/main.css" rel="stylesheet">
-		
-		<!-- Google webfonts -->
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cousine">
-		
-		<!-- jQuery and plugins -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<script src="/js/jquery.zclip.min.js"></script>
-		
-		<!-- Syntax highlighter -->
-		<link href="/stylesheets/prettify-hemisu.css" type="text/css" rel="stylesheet" />
-		<script type="text/javascript" src="/js/prettify.js"></script>
-		
-		<!--<link href="http://feeds.feedburner.com/turkeltaub" rel="alternate" title="Hyace" type="application/rss+xml" />-->
-		
-	</head>
-	<body onload="prettyPrint()">
-	
-		<div class="wrap">
-	
-			<header>
-				<div class="title">Hyace</div>
-				
-				<div class="navi">
-					<ul>
-						<li><a href="/">Blog</a></li>
-						<li><a href="/blog/archives">Archives</a></li>
-					</ul>
-				</div> <!-- // .navi -->
-			</header>
-		
-				<!-- START OF index.html -->
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hyace</title>
+  <meta name="author" content="Hyace">
 
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a></h1>
-		<time>27 August 2014</time>
-	</header>
-		<div class="content">
-			<p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
+  
+  <meta name="description" content="对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。 首先从这里下载到Thrift的包。 Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。 解压安装包，进入，运行： ./configure make make &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hyace.github.io">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hyace.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T13:33:42+08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
    首先从<a href="http://incubator.apache.org/thrift/download/">这里下载</a>到Thrift的包。<br/>
    Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。<br/>
    解压安装包，进入，运行：</p>
@@ -93,36 +130,44 @@ bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了�
 功，之后有装回来了。<br/>
    ps：寻找答案过程中才知道墙内有个网站叫<a href="http://segmentfault.com/">segmentfault</a>,还有个网站叫<br/>
 <a href="http://outofmemory.cn/">outofmemory</a>，方知山寨之伟大～</p>
-
-			
-			
-		</div>
-	<footer>
-		
+</div>
+  
+  
 
 
-		
+    </article>
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">Ubuntu下安装Sublime3的Markdown插件</a></h1>
+      
+      
+    
+      <p class="meta">
+        
 
 
 
 
-	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
 
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">Ubuntu下安装Sublime3的Markdown插件</a></h1>
-		<time>27 August 2014</time>
-	</header>
-		<div class="content">
-			<hr />
+
+
+
+  
+
+
+<time datetime="2014-08-27T01:04:21+08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><hr />
 
 <p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
 但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
@@ -157,104 +202,104 @@ markdown, 选择markdown preview
 <p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
 它识别的是markdown后缀，而不是md后缀。
 pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
-
-			
-			
-		</div>
-	<footer>
-		
-
-
-		
-
-
-
-
-	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
-
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/08/26/first-blood/">First Blood</a></h1>
-		<time>26 August 2014</time>
-	</header>
-		<div class="content">
-			
-
-			
-			
-		</div>
-	<footer>
-		
-
-
-		
-
-
-
-
-	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
-
-	
-	
-<div class="pagination">
-	
-	
-	<span class="total">1 of 1</span>
-	
-	
 </div>
-<!-- END OF index.html -->
-
-		
-			<footer>
-				Copyright &copy; 2014
-
-	Hyace
+  
+  
 
 
-			</footer>
-			
-		</div> <!-- // .wrap -->
-	</body>
-	<script>
-		$(document).ready(function() {
-			// Make images center
-			$('p:has(img)').css('text-align', 'center');
-			
-			// Add the image's title attribute as a caption
-			$('p:has(img)').append(function () {
-				return '<div class="caption">' + ($('img', this).attr('title') || "") + '</div>';
-			});
-			
-			// Prettify code
-			$('code').addClass('prettyprint');
-			$('pre code').addClass('linenums');
-			
-			// Copy to clipboard with button
-			$('pre:has(code)').prepend(function(){
-				return '<div class="clip-btn">copy to clipboard</div>';
-			});
-			$('.clip-btn').zclip({
-				path:'/js/ZeroClipboard.swf',
-				copy: $(this).next('code').text(),
-				afterCopy: function(){
-					$(this).replaceWith('<div class="clip-btn">copied!');
-					}
-			});
-		});
-	</script>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/26/first-blood/">First Blood</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-26T00:07:11+08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">Ubuntu下安装Sublime3的Markdown插件</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/26/first-blood/">First Blood</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Hyace <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>, customized with <a href="https://github.com/mjhea0/whiterspace">whiterspace</a>.</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
 </html>
-<!-- END OF _layouts/default.html -->
