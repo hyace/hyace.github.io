@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Hyace]]></title>
-  <link href="http://hyace.github.io/atom.xml" rel="self"/>
-  <link href="http://hyace.github.io/"/>
-  <updated>2014-08-28T00:44:52+08:00</updated>
-  <id>http://hyace.github.io/</id>
-  <author>
-    <name><![CDATA[Hyace]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+	<title><![CDATA[Hyace]]></title>
+	<link href="http://hyace.github.io/atom.xml" rel="self"/>
+	<link href="http://hyace.github.io/"/>
+	<updated>2014-08-28T00:54:40+08:00</updated>
+	<id>http://hyace.github.io/</id>
+	<author>
+		<name><![CDATA[Hyace]]></name>
+		
+	</author>
+	<generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Thrift的安装以及问题]]></title>
-    <link href="http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/"/>
-    <updated>2014-08-27T13:33:42+08:00</updated>
-    <id>http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti</id>
-    <content type="html"><![CDATA[<p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[Thrift的安装以及问题]]></title>
+		
+		<link href="http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/"/>
+		<updated>2014-08-27T13:33:42+08:00</updated>
+		<id>http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
    首先从<a href="http://incubator.apache.org/thrift/download/">这里下载</a>到Thrift的包。<br/>
    Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。<br/>
    解压安装包，进入，运行：</p>
@@ -56,15 +64,24 @@ bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了�
 功，之后有装回来了。<br/>
    ps：寻找答案过程中才知道墙内有个网站叫<a href="http://segmentfault.com/">segmentfault</a>,还有个网站叫<br/>
 <a href="http://outofmemory.cn/">outofmemory</a>，方知山寨之伟大～</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ubuntu下安装Sublime3的Markdown插件]]></title>
-    <link href="http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/"/>
-    <updated>2014-08-27T01:04:21+08:00</updated>
-    <id>http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian</id>
-    <content type="html"><![CDATA[<hr />
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[Ubuntu下安装Sublime3的Markdown插件]]></title>
+		
+		<link href="http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/"/>
+		<updated>2014-08-27T01:04:21+08:00</updated>
+		<id>http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<hr />
 
 <p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
 但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
@@ -99,16 +116,26 @@ markdown, 选择markdown preview
 <p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
 它识别的是markdown后缀，而不是md后缀。
 pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[First Blood]]></title>
-    <link href="http://hyace.github.io/blog/2014/08/26/first-blood/"/>
-    <updated>2014-08-26T00:07:11+08:00</updated>
-    <id>http://hyace.github.io/blog/2014/08/26/first-blood</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[First Blood]]></title>
+		
+		<link href="http://hyace.github.io/blog/2014/08/26/first-blood/"/>
+		<updated>2014-08-26T00:07:11+08:00</updated>
+		<id>http://hyace.github.io/blog/2014/08/26/first-blood</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[
+]]>
+		</content>
+	</entry>
+	
 </feed>
