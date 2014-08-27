@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-27T14:30:02+08:00</updated>
+  <updated>2014-08-27T14:48:34+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -107,7 +107,9 @@ pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
     <link href="http://hyace.github.io/blog/2014/08/26/first-blood/"/>
     <updated>2014-08-26T00:07:11+08:00</updated>
     <id>http://hyace.github.io/blog/2014/08/26/first-blood</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>2014-08-26<br/>
+第一篇原想总结一下octopress的搭建历程，但是有些东西还是没有弄明白，好好总结一下<br/>
+再成文吧～。</p>
 ]]></content>
   </entry>
   
