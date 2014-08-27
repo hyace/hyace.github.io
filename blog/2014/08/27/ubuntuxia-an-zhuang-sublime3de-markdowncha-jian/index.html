@@ -1,11 +1,17 @@
+
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <title>Ubuntu下安装Sublime3的Markdown插件 - Hyace</title>
   <meta name="author" content="Hyace">
 
   
+  <meta name="description" content="开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，
+但还是不行，比如vim-instant-markdown(git)，按照要求的各种依赖也都
+安装了，但是用vim打开md文件还是悄然无声。 据说Sublime也可以支持markdown， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -15,114 +21,72 @@
 
   
   <link rel="canonical" href="http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian">
-  <link href="/favicon.png" type="image/png" rel="icon">
-  <link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
-
-  <!-- http://opengraphprotocol.org/ -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian">
-  <meta property="og:title" content="Ubuntu下安装Sublime3的Markdown插件 - Hyace">
-  
-
-  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-
-<link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-
-
-  
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
 
 </head>
 
-  <body   >
-    <div id="wrap">
-      <header role="banner">
-        <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Hyace</a>
-        </div>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Hyace</a></h1>
+  
+    <h2>君子豹变 其文蔚也</h2>
+  
+</hgroup>
 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a rel="index" href="/">Blog</a>
-                </li>
-                <li >
-                    <a href="/blog/archives">Archives</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
-                        <span class="visible-xs">RSS</span>
-                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
-                    </a>
-                </li>
-                
-            </ul>
-            
-                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:hyace.github.io">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="q" placeholder="Search">
-                    </div>
-                </form>
-            
-        </div>
-    </div>
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hyace.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
 </nav>
-
-
-      </header>
-      <div id="main" class="container">
-        <div id="content">
-          <div class="row">
-  <div class="page-content col-md-9" itemscope itemtype="http://schema.org/Blog">
-    <meta itemprop="name" content="Hyace" />
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
     
-    <meta itemprop="url" content="http://hyace.github.io" />
-    <article class="hentry" role="article" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-      
-  <header class="page-header">
+      <h1 class="entry-title">Ubuntu下安装Sublime3的Markdown插件</h1>
     
-      <p class="meta text-muted text-uppercase">
+    
+      <p class="meta">
         
 
 
 
 
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-27T01:04:21+08:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+<time class='entry-date' datetime='2014-08-27T01:04:21+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>1:04 am</span></time>
         
       </p>
-    
-    
-    <h1 class="entry-title" itemprop="name headline">
-        Ubuntu下安装Sublime3的Markdown插件
-        
-    </h1>
     
   </header>
 
 
-<div class="entry-content clearfix" itemprop="articleBody description"><hr />
+<div class="entry-content"><hr />
 
 <p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
 但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
@@ -160,98 +124,82 @@ pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
 </div>
 
 
-      <footer>
-        <p class="meta text-muted">
-          
+  <footer>
+    <p class="meta">
+      
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person">Posted by <span class="fn" itemprop="name">Hyace</span></span>
+<span class="byline author vcard">Posted by <span class="fn">Hyace</span></span>
 
-          
-
-
+      
 
 
 
 
+<time class='entry-date' datetime='2014-08-27T01:04:21+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>1:04 am</span></time>
+      
 
 
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-27T01:04:21+08:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
-          
-
-
-        </p>
-        
-          <div class="sharing">
+    </p>
+    
+      <div class="sharing">
   
   
   
 </div>
 
-        
-        
-          <ul class="meta text-muted pager">
-            
-            <li class="previous"><a href="/blog/2014/08/26/first-blood/" title="Previous Post: First Blood">&laquo; First Blood</a></li>
-            
-            
-            <li class="next"><a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/" title="Next Post: Thrift的安装以及问题">Thrift的安装以及问题 &raquo;</a></li>
-            
-          </ul>
-        
-      </footer>
-    </article>
     
-  </div>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/08/26/first-blood/" title="Previous Post: First Blood">&laquo; First Blood</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/" title="Next Post: Thrift的安装以及问题">Thrift的安装以及问题 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
 
+</div>
+
+<aside class="sidebar">
   
-  <aside class="sidebar col-md-3">
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
     
-      <section class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Recent Posts</h3>
-  </div>
-  
-  <div id="recent_posts" class="list-group">
+      <li class="post">
+        <a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a>
+      </li>
     
-    <a class="list-group-item " href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a>
+      <li class="post">
+        <a href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">Ubuntu下安装Sublime3的Markdown插件</a>
+      </li>
     
-    <a class="list-group-item active" href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">Ubuntu下安装Sublime3的Markdown插件</a>
+      <li class="post">
+        <a href="/blog/2014/08/26/first-blood/">First Blood</a>
+      </li>
     
-    <a class="list-group-item " href="/blog/2014/08/26/first-blood/">First Blood</a>
-    
-  </div>
+  </ul>
 </section>
 
 
 
 
 
-
-    
-  </aside>
   
-</div>
+</aside>
 
-        </div>
-      </div>
+
     </div>
-    <footer role="contentinfo"><div class="container">
-    <p class="text-muted credits">
-  Copyright &copy; 2014 - Hyace<br>
-  <small>
-      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
-      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
-  </small>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Hyace -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-</div>
 </footer>
-    
+  
 
 
 
@@ -260,9 +208,8 @@ pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
 
 
 
-<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/javascripts/modernizr-2.0.js"></script>
 
 
-  </body>
+
+</body>
 </html>
