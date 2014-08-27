@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-28T01:00:25+08:00</updated>
+  <updated>2014-08-28T01:15:07+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -14,13 +14,10 @@
 
   
   <entry>
-    
     <title type="html"><![CDATA[Thrift的安装以及问题]]></title>
     <link href="http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/"/>
-    
     <updated>2014-08-27T13:33:42+08:00</updated>
     <id>http://hyace.github.io/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti</id>
-    
     <content type="html"><![CDATA[<p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
    首先从<a href="http://incubator.apache.org/thrift/download/">这里下载</a>到Thrift的包。<br/>
    Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。<br/>
@@ -60,17 +57,13 @@ bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了�
    ps：寻找答案过程中才知道墙内有个网站叫<a href="http://segmentfault.com/">segmentfault</a>,还有个网站叫<br/>
 <a href="http://outofmemory.cn/">outofmemory</a>，方知山寨之伟大～</p>
 ]]></content>
-    
   </entry>
   
   <entry>
-    
     <title type="html"><![CDATA[Ubuntu下安装Sublime3的Markdown插件]]></title>
     <link href="http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/"/>
-    
     <updated>2014-08-27T01:04:21+08:00</updated>
     <id>http://hyace.github.io/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian</id>
-    
     <content type="html"><![CDATA[<hr />
 
 <p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
@@ -107,20 +100,15 @@ markdown, 选择markdown preview
 它识别的是markdown后缀，而不是md后缀。
 pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
 ]]></content>
-    
   </entry>
   
   <entry>
-    
     <title type="html"><![CDATA[First Blood]]></title>
     <link href="http://hyace.github.io/blog/2014/08/26/first-blood/"/>
-    
     <updated>2014-08-26T00:07:11+08:00</updated>
     <id>http://hyace.github.io/blog/2014/08/26/first-blood</id>
-    
     <content type="html"><![CDATA[
 ]]></content>
-    
   </entry>
   
 </feed>
