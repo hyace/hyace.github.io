@@ -113,6 +113,75 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-28T01:20:26+08:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title" itemprop="name headline"><a href="/blog/2014/08/28/gitshi-guang-ji/" itemprop="url">Git时光机</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix" itemprop="articleBody description"><p>处于对theme的追求，找到了<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">这个页面</a>,恨不能把列出来的都试一遍，但有<br/>
+的很好看的主题装起来比较麻烦，还有很多依赖或者配置，下午就经历了一次，<br/>
+不知道是哪一个主题，装完以后我的主页上就没有article显示了，我就想用git<br/>
+回滚到没装主题的下午两点。<br/>
+但是之前用git也就是<code>add commit pull push</code>流，知道git强大到随心所欲，但<br/>
+就是无从下手。研究很久之后尝试，先checkout到了两点的commit。</p>
+
+<pre><code>git checkout [SHA]  
+git reset
+git status  
+</code></pre>
+
+<p>然后就列出了红红一片的unstaged，但是我想的是要把本地的更改完全撤销，这<br/>
+些文件就不知道如何处理了。<br/>
+<img src="/images/2014082800.png" alt="redline" /></p>
+
+<p>后来干脆休克疗法&hellip;把octopress文件夹下除了source里的_posts都删掉，从仓<br/>
+库里checkout。尝试了一下如下命令：</p>
+
+<pre><code>git checkout -- _config.yml  
+git status  
+</code></pre>
+
+<p>然后列出的红字里就没有_config.yml了。<br/>
+但是这数百个文件要改到何时&hellip;想起了很久没用过了的shell脚本，把这几百行<br/>
+的输出都复制到sos.sh里，每行前加上<code>git checkout --</code>，保存，<code>./sos.sh</code><br/>
+运行。果然都消失了。然后赶紧恢复到github。</p>
+
+<pre><code>git push origin source  
+</code></pre>
+
+<p>问题是解决了，但是做的很不好，终究还是对git不熟悉，有点误打误撞的成分，<br/>
+看来还是要好好研究下。</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-27T13:33:42+08:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
         
       </p>
@@ -298,6 +367,8 @@ pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
   </div>
   
   <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/08/28/gitshi-guang-ji/">Git时光机</a>
     
     <a class="list-group-item " href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">Thrift的安装以及问题</a>
     
