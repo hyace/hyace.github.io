@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-29T19:30:40+08:00</updated>
+  <updated>2014-08-29T20:09:26+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -23,79 +23,87 @@
 <hr />
 
 <ul>
-<li><strong>解释shell</strong>
-第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出，<br/>
-<code>/bin/sh</code>是指向dash的。<br/>
-<img src="http://hyace.github.io/images/2014082900.png" alt="1" /><br/>
-而在sh下有的命令是没有的，所以会提示<code>bad substitution</code>。</li>
+<li><strong>解释shell</strong></li>
 </ul>
 
+
+<p>第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出,</p>
+
+<p><code>/bin/sh</code>是指向dash的。</p>
+
+<p><img src="http://hyace.github.io/images/2014082900.png" alt="1" /></p>
+
+<p>而在sh下有的命令是没有的，所以会提示<code>bad substitution</code>。</p>
 
 <hr />
 
-<ul>
-<li><strong>字符串操作</strong>
+<p><strong>字符串操作</strong></p>
 
-<ul>
-<li>获取长度：<br/>
-echo ${#STRING}</li>
-<li>获取子字符串：<br/>
-echo ${STRING:m:n} # m，n的头尾都会包含</li>
-<li>获取子串索引：<br/>
-echo `expr index &ldquo;$string&rdquo; g`</li>
-</ul>
-</li>
-</ul>
+<p> 获取长度:</p>
 
+<pre><code>echo ${#STRING}
+</code></pre>
 
-<hr />
+<p> 获取子字符串：</p>
 
-<ul>
-<li><strong>流程控制</strong>
+<pre><code>echo ${STRING:m:n} # m，n的头尾都会包含
+</code></pre>
 
-<ul>
-<li>才知道原来放括号<code>[</code>也是linux里的可执行程序 = =！，所以后头要空格加参数。<br/>
-  if [ 4 -lt 3 ]
-  then
-      echo 4
-  else
-      echo 3
-  fi
-参数可以有:eq ge gt le lt ne a o 等</li>
-<li>循环  for:<br/>
-for var in var1 var2  &hellip;<br/>
-do<br/>
-   &hellip;<br/>
-done</li>
-<li>while:<br/>
-while &hellip;<br/>
-do<br/>
-   &hellip;<br/>
-done</li>
-</ul>
-</li>
-</ul>
+<p> 获取子串索引:</p>
 
+<pre><code>echo \`expr index "$string" g\`
+</code></pre>
 
 <hr />
 
-<ul>
-<li><strong>文件包含</strong> <br/>
-  source ./SHELL.sh<br/>
-  . ./SHELL.sh<br/>
- 以上两行是等价的，注意第二种写法<code>/</code>不能省略。</li>
-</ul>
+<p><strong>流程控制</strong></p>
 
+<p> 才知道原来放括号<code>[</code>也是linux里的可执行程序 = =！，所以后头要空格加参数。</p>
+
+<pre><code>if [ 4 -lt 3 ]
+then
+    echo 4
+else
+    echo 3
+fi
+</code></pre>
+
+<p>参数可以有:eq ge gt le lt ne a o 等</p>
+
+<p> 循环  for:</p>
+
+<pre><code>for var in var1 var2  ...
+do
+    ...
+done
+</code></pre>
+
+<p> 循环  while:</p>
+
+<pre><code>while ...
+    do
+      ...
+done  
+</code></pre>
 
 <hr />
 
-<ul>
-<li><strong>获取文件路径</strong><br/>
-  $ path=`readlink -f shelltest.sh`<br/>
-  $ echo $path<br/>
-  /home/chyace/proj/shell/shelltest.sh</li>
-</ul>
+<p><strong>文件包含</strong></p>
 
+<pre><code>source ./SHELL.sh
+. ./SHELL.sh
+</code></pre>
+
+<p>以上两行是等价的，注意第二种写法<code>/</code>不能省略。</p>
+
+<hr />
+
+<p><strong>获取文件路径</strong></p>
+
+<pre><code>$ path=\`readlink -f shelltest.sh\`
+$ echo $path
+/home/chyace/proj/shell/shelltest.sh  
+</code></pre>
 ]]></content>
   </entry>
   
