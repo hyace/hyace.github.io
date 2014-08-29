@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-29T20:12:44+08:00</updated>
+  <updated>2014-08-29T21:19:29+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -44,7 +44,7 @@
 
 <p> 获取子串索引:</p>
 
-<pre><code>echo \`expr index "$string" g\`
+<pre><code>echo `expr index "$string" g`
 </code></pre>
 
 <hr />
@@ -93,7 +93,7 @@ done
 
 <p><strong>获取文件路径</strong></p>
 
-<pre><code>$ path=\`readlink -f shelltest.sh\`
+<pre><code>$ path=`readlink -f shelltest.sh`
 $ echo $path
 /home/chyace/proj/shell/shelltest.sh  
 </code></pre>
