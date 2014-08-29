@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-29T19:16:17+08:00</updated>
+  <updated>2014-08-29T19:18:37+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -26,7 +26,7 @@
 <li><strong>解释shell</strong>
 第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出，<br/>
 <code>/bin/sh</code>是指向dash的。<br/>
-<img src="http://hyace.github.io/images/2014082900.jpg" alt="1" /><br/>
+<img src="http://hyace.github.io/images/2014082900.png" alt="1" /><br/>
 而在sh下有的命令是没有的，所以会提示<code>bad substitution</code>。</li>
 </ul>
 
