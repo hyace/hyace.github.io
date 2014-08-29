@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-29T20:09:26+08:00</updated>
+  <updated>2014-08-29T20:11:04+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -18,11 +18,7 @@
     <link href="http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang/"/>
     <updated>2014-08-29T19:28:03+08:00</updated>
     <id>http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang</id>
-    <content type="html"><![CDATA[<h1>Shell脚本 备忘</h1>
-
-<hr />
-
-<ul>
+    <content type="html"><![CDATA[<ul>
 <li><strong>解释shell</strong></li>
 </ul>
 
