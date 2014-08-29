@@ -1,0 +1,78 @@
+<h1>Shell脚本编程备忘</h1>
+
+<hr />
+
+<ul>
+<li><strong>解释shell</strong>
+第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出，<br/>
+<code>/bin/sh</code>是指向dash的。<br/>
+<img src="/images/2014082900.jpg" alt="1" /><br/>
+而在sh下有的命令是没有的，所以会提示<code>bad substitution</code>。</li>
+</ul>
+
+
+<hr />
+
+<ul>
+<li><strong>字符串操作</strong>
+
+<ul>
+<li>获取长度：<br/>
+echo ${#STRING}</li>
+<li>获取子字符串：<br/>
+echo ${STRING:m:n} # m，n的头尾都会包含</li>
+<li>获取子串索引：<br/>
+echo `expr index &ldquo;$string&rdquo; g`</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<ul>
+<li><strong>流程控制</strong>
+
+<ul>
+<li>才知道原来放括号<code>[</code>也是linux里的可执行程序 = =！，所以后头要空格加参数。<br/>
+  if [ 4 -lt 3 ]
+  then
+      echo 4
+  else
+      echo 3
+  fi
+参数可以有:eq ge gt le lt ne a o 等</li>
+<li>循环  for:<br/>
+for var in var1 var2  &hellip;<br/>
+do<br/>
+   &hellip;<br/>
+done</li>
+<li>while:<br/>
+while &hellip;<br/>
+do<br/>
+   &hellip;<br/>
+done</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<ul>
+<li><strong>文件包含</strong> <br/>
+  source ./SHELL.sh<br/>
+  . ./SHELL.sh<br/>
+ 以上两行是等价的，注意第二种写法<code>/</code>不能省略。</li>
+</ul>
+
+
+<hr />
+
+<ul>
+<li><strong>获取文件路径</strong><br/>
+  $ path=`readlink -f shelltest.sh`<br/>
+  $ echo $path<br/>
+  /home/chyace/proj/shell/shelltest.sh</li>
+</ul>
+
