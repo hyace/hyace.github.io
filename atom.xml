@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-29T20:11:04+08:00</updated>
+  <updated>2014-08-29T20:12:44+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -18,10 +18,7 @@
     <link href="http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang/"/>
     <updated>2014-08-29T19:28:03+08:00</updated>
     <id>http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang</id>
-    <content type="html"><![CDATA[<ul>
-<li><strong>解释shell</strong></li>
-</ul>
-
+    <content type="html"><![CDATA[<p> <strong>解释shell</strong></p>
 
 <p>第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出,</p>
 
