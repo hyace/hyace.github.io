@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2014-08-29T21:19:29+08:00</updated>
+  <updated>2014-12-06T08:50:15+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CentOS7在Vmware中应用记录]]></title>
+    <link href="http://hyace.github.io/blog/2014/12/06/centos7zai-vmwarezhong-ying-yong-ji-lu/"/>
+    <updated>2014-12-06T08:31:11+08:00</updated>
+    <id>http://hyace.github.io/blog/2014/12/06/centos7zai-vmwarezhong-ying-yong-ji-lu</id>
+    <content type="html"><![CDATA[<p>由于需要搭建基于阿里的Cobar的Mysql集群，所以打算先在虚拟机中实验下效果。</p>
+
+<p>之前因为内存有限，基本上实验是在ArchLinux中的，这次尝试比较大众也比较方便的CentOS。</p>
+
+<h3>1.虚拟机迁移问题</h3>
+
+<p>昨晚在家里电脑上安装好的CentOS7，选择了带GUI的服务器模式，复制到移动盘里打算在公司用，结果装载不进去，显示：</p>
+
+<blockquote><p>this kernel requires an x86-64 CPU ,but only detected an i686 CPU.
+this processor is unsupported in rhel7.</p></blockquote>
+
+<p>google之发现是BIOS没有开启虚拟化的原因，可以在BIOS设置里选择Intel VirtualTechnology，设置成enable。</p>
+
+<h3>2.设置开机默认不开启GUI</h3>
+
+<p>打开inittab文件设置</p>
+
+<pre><code>#vim /etc/inittab
+</code></pre>
+
+<p>在文件末尾加上</p>
+
+<pre><code>id:3:initdefault:
+</code></pre>
+
+<p>参数3是开机多用户模式，5是图形界面模式。</p>
+
+<h4>在CentOS7以前是这种方式，但是7改动比较大，放弃了这种配置方式，inittab文件还在，但是已经不起作用了，提示用新的方法设定：</h4>
+
+<pre><code>ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.targtet    
+</code></pre>
+
+<p>通过软链完成设置。</p>
+
+<p>如果想在CLI下打开GUI可以输入：</p>
+
+<pre><code>startx
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Shell脚本 备忘]]></title>

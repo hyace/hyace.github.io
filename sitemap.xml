@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://hyace.github.io/blog/2014/12/06/centos7zai-vmwarezhong-ying-yong-ji-lu/</loc>
+    <lastmod>2014-12-06T08:31:11+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang/</loc>
     <lastmod>2014-08-29T19:28:03+08:00</lastmod>
     <priority>0.8</priority>
@@ -35,14 +41,14 @@
   
   <url>
     <loc>http://hyace.github.io/</loc>
-    <lastmod>2014-08-29T21:19:29+08:00</lastmod>
+    <lastmod>2014-12-06T08:50:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hyace.github.io/blog/archives/</loc>
-    <lastmod>2014-08-29T21:19:29+08:00</lastmod>
+    <lastmod>2014-12-06T08:50:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
