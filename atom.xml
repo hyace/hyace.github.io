@@ -4,7 +4,11 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
+<<<<<<< HEAD
   <updated>2014-12-15T01:08:57+08:00</updated>
+=======
+  <updated>2014-12-06T08:50:15+08:00</updated>
+>>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -14,6 +18,7 @@
 
   
   <entry>
+<<<<<<< HEAD
     <title type="html"><![CDATA[Archlinux 中使用Mysql]]></title>
     <link href="http://hyace.github.io/blog/2014/12/07/archlinux-zhong-shi-yong-mysql/"/>
     <updated>2014-12-07T09:51:44+08:00</updated>
@@ -46,6 +51,178 @@
 <p>　　其中root是远程连接用的账户名，q为密码，&#8217;%&lsquo;表示通配。</p>
 
 <p>　　需要的话可以设置mysql守护进程开机启动：<code>sudo systemctl enable mysqld</code></p>
+=======
+    <title type="html"><![CDATA[CentOS7在Vmware中应用记录]]></title>
+    <link href="http://hyace.github.io/blog/2014/12/06/centos7zai-vmwarezhong-ying-yong-ji-lu/"/>
+    <updated>2014-12-06T08:31:11+08:00</updated>
+    <id>http://hyace.github.io/blog/2014/12/06/centos7zai-vmwarezhong-ying-yong-ji-lu</id>
+    <content type="html"><![CDATA[<p>由于需要搭建基于阿里的Cobar的Mysql集群，所以打算先在虚拟机中实验下效果。</p>
+
+<p>之前因为内存有限，基本上实验是在ArchLinux中的，这次尝试比较大众也比较方便的CentOS。</p>
+
+<h3>1.虚拟机迁移问题</h3>
+
+<p>昨晚在家里电脑上安装好的CentOS7，选择了带GUI的服务器模式，复制到移动盘里打算在公司用，结果装载不进去，显示：</p>
+
+<blockquote><p>this kernel requires an x86-64 CPU ,but only detected an i686 CPU.
+this processor is unsupported in rhel7.</p></blockquote>
+
+<p>google之发现是BIOS没有开启虚拟化的原因，可以在BIOS设置里选择Intel VirtualTechnology，设置成enable。</p>
+
+<h3>2.设置开机默认不开启GUI</h3>
+
+<p>打开inittab文件设置</p>
+
+<pre><code>#vim /etc/inittab
+</code></pre>
+
+<p>在文件末尾加上</p>
+
+<pre><code>id:3:initdefault:
+</code></pre>
+
+<p>参数3是开机多用户模式，5是图形界面模式。</p>
+
+<h4>在CentOS7以前是这种方式，但是7改动比较大，放弃了这种配置方式，inittab文件还在，但是已经不起作用了，提示用新的方法设定：</h4>
+
+<pre><code>ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.targtet    
+</code></pre>
+
+<p>通过软链完成设置。</p>
+
+<p>如果想在CLI下打开GUI可以输入：</p>
+
+<pre><code>startx
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shell脚本 备忘]]></title>
+    <link href="http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang/"/>
+    <updated>2014-08-29T19:28:03+08:00</updated>
+    <id>http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang</id>
+    <content type="html"><![CDATA[<p> <strong>解释shell</strong></p>
+
+<p>第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出,</p>
+
+<p><code>/bin/sh</code>是指向dash的。</p>
+
+<p><img src="http://hyace.github.io/images/2014082900.png" alt="1" /></p>
+
+<p>而在sh下有的命令是没有的，所以会提示<code>bad substitution</code>。</p>
+
+<hr />
+
+<p><strong>字符串操作</strong></p>
+
+<p> 获取长度:</p>
+
+<pre><code>echo ${#STRING}
+</code></pre>
+
+<p> 获取子字符串：</p>
+
+<pre><code>echo ${STRING:m:n} # m，n的头尾都会包含
+</code></pre>
+
+<p> 获取子串索引:</p>
+
+<pre><code>echo `expr index "$string" g`
+</code></pre>
+
+<hr />
+
+<p><strong>流程控制</strong></p>
+
+<p> 才知道原来放括号<code>[</code>也是linux里的可执行程序 = =！，所以后头要空格加参数。</p>
+
+<pre><code>if [ 4 -lt 3 ]
+then
+    echo 4
+else
+    echo 3
+fi
+</code></pre>
+
+<p>参数可以有:eq ge gt le lt ne a o 等</p>
+
+<p> 循环  for:</p>
+
+<pre><code>for var in var1 var2  ...
+do
+    ...
+done
+</code></pre>
+
+<p> 循环  while:</p>
+
+<pre><code>while ...
+    do
+      ...
+done  
+</code></pre>
+
+<hr />
+
+<p><strong>文件包含</strong></p>
+
+<pre><code>source ./SHELL.sh
+. ./SHELL.sh
+</code></pre>
+
+<p>以上两行是等价的，注意第二种写法<code>/</code>不能省略。</p>
+
+<hr />
+
+<p><strong>获取文件路径</strong></p>
+
+<pre><code>$ path=`readlink -f shelltest.sh`
+$ echo $path
+/home/chyace/proj/shell/shelltest.sh  
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git时光机]]></title>
+    <link href="http://hyace.github.io/blog/2014/08/28/gitshi-guang-ji/"/>
+    <updated>2014-08-28T01:20:26+08:00</updated>
+    <id>http://hyace.github.io/blog/2014/08/28/gitshi-guang-ji</id>
+    <content type="html"><![CDATA[<p>出于对theme的追求，找到了<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">这个页面</a>,恨不能把列出来的都试一遍，但有<br/>
+的很好看的主题装起来比较麻烦，还有很多依赖或者配置，下午就经历了一次，<br/>
+不知道是哪一个主题，装完以后我的主页上就没有article显示了，我就想用git<br/>
+回滚到没装主题的下午两点。<br/>
+但是之前用git也就是<code>add commit pull push</code>流，知道git强大到随心所欲，但<br/>
+就是无从下手。研究很久之后尝试，先checkout到了两点的commit。</p>
+
+<pre><code>git checkout [SHA]  
+git reset
+git status  
+</code></pre>
+
+<p>然后就列出了红红一片的unstaged，但是我想的是要把本地的更改完全撤销，这<br/>
+些文件就不知道如何处理了。<br/>
+<img src="http://hyace.github.io/images/2014082800.png" alt="redline" /></p>
+
+<p>后来干脆休克疗法&hellip;把octopress文件夹下除了source里的_posts都删掉，从仓<br/>
+库里checkout。尝试了一下如下命令：</p>
+
+<pre><code>git checkout -- _config.yml  
+git status  
+</code></pre>
+
+<p>然后列出的红字里就没有_config.yml了。<br/>
+但是这数百个文件要改到何时&hellip;想起了很久没用过了的shell脚本，把这几百行<br/>
+的输出都复制到sos.sh里，每行前加上<code>git checkout --</code>，保存，<code>./sos.sh</code><br/>
+运行。果然都消失了。然后赶紧恢复到github。</p>
+
+<pre><code>git push origin source  
+</code></pre>
+
+<p>问题是解决了，但是做的很不好，终究还是对git不熟悉，有点误打误撞的成分，<br/>
+看来还是要好好研究下。</p>
+>>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
 ]]></content>
   </entry>
   
@@ -133,7 +310,11 @@ markdown, 选择markdown preview
 <hr />
 
 <p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
+<<<<<<< HEAD
 它识别的是markdown后缀，而不是md后缀。
+=======
+它识别的是markdown后缀，而不是md后缀。<br/>
+>>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
 pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
 ]]></content>
   </entry>

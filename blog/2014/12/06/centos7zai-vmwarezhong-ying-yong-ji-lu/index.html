@@ -3,13 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Ubuntu下安装Sublime3的Markdown插件 - Hyace</title>
+	<title>CentOS7在Vmware中应用记录 - Hyace</title>
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，
-但还是不行，比如vim-instant-markdown(git)，按照要求的各种依赖也都
-安装了，但是用vim打开md文件还是悄然无声。 据说Sublime也可以支持markdown， &hellip;">
+	<meta name="description" content="由于需要搭建基于阿里的Cobar的Mysql集群，所以打算先在虚拟机中实验下效果。 之前因为内存有限，基本上实验是在ArchLinux中的，这次尝试比较大众也比较方便的CentOS。 1.虚拟机迁移问题 昨晚在家里电脑上安装好的CentOS7，选择了带GUI的服务器模式，复制到移动盘里打算在公司用 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -42,11 +40,7 @@
 	<div class="alignright search">
 		<a class="button"></a>
 		<div class="container">
-<<<<<<< HEAD
-			<form action="https://173.194.120.70/search" method="get">
-=======
 			<form action="https://www.google.com/search" method="get">
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
 				<input type="text" name="q" results="0">
 				<input type="hidden" name="q" value="site:hyace.github.io">
 			</form>
@@ -69,11 +63,7 @@
 		
     
 	</div>
-<<<<<<< HEAD
-	<form class="search" action="https://173.194.120.70/search" method="get">
-=======
 	<form class="search" action="https://www.google.com/search" method="get">
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
 		<input class="alignright" type="text" name="q" results="0">
 		<input type="hidden" name="q" value="site:hyace.github.io">
 	</form>
@@ -84,46 +74,45 @@
 		
 	
 	<div id="content" class="inner"><article class="post">
-	<h2 class="title">Ubuntu下安装Sublime3的Markdown插件</h2>
-	<div class="entry-content"><hr />
+	<h2 class="title">CentOS7在Vmware中应用记录</h2>
+	<div class="entry-content"><p>由于需要搭建基于阿里的Cobar的Mysql集群，所以打算先在虚拟机中实验下效果。</p>
 
-<p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
-但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
-安装了，但是用vim打开md文件还是悄然无声。
-    据说Sublime也可以支持markdown，所以就在Ubuntu下安装了一个Sublime3.<br/>
-之后就可以安装markdown插件了。<br/>
-    按ctrl+～，输入命令：</p>
+<p>之前因为内存有限，基本上实验是在ArchLinux中的，这次尝试比较大众也比较方便的CentOS。</p>
 
-<pre><code>import urllib.request,os; pf = 'Package Control.sublime-package';  
-ipp = sublime.installed_packages_path();  
-urllib.request.install_opener( urllib.request.build_opener(    \
-urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf),  \
-'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/'\
-+ pf.replace(' ','%20')).read())  
+<h3>1.虚拟机迁移问题</h3>
+
+<p>昨晚在家里电脑上安装好的CentOS7，选择了带GUI的服务器模式，复制到移动盘里打算在公司用，结果装载不进去，显示：</p>
+
+<blockquote><p>this kernel requires an x86-64 CPU ,but only detected an i686 CPU.
+this processor is unsupported in rhel7.</p></blockquote>
+
+<p>google之发现是BIOS没有开启虚拟化的原因，可以在BIOS设置里选择Intel VirtualTechnology，设置成enable。</p>
+
+<h3>2.设置开机默认不开启GUI</h3>
+
+<p>打开inittab文件设置</p>
+
+<pre><code>#vim /etc/inittab
 </code></pre>
 
-<p>   之后可以安ctrl+shift+p，输入命令：</p>
+<p>在文件末尾加上</p>
 
-<pre><code>package, 选择install package  
-markdown, 选择markdown preview  
+<pre><code>id:3:initdefault:
 </code></pre>
 
-<p>重启sublime，打开一个md文件，输入命令：</p>
+<p>参数3是开机多用户模式，5是图形界面模式。</p>
 
-<pre><code>markdown preview， 选择 preview in browser  
+<h4>在CentOS7以前是这种方式，但是7改动比较大，放弃了这种配置方式，inittab文件还在，但是已经不起作用了，提示用新的方法设定：</h4>
+
+<pre><code>ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.targtet    
 </code></pre>
 
-<p>这样就可以预览了，但是不是实时的。</p>
+<p>通过软链完成设置。</p>
 
-<hr />
+<p>如果想在CLI下打开GUI可以输入：</p>
 
-<p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
-<<<<<<< HEAD
-它识别的是markdown后缀，而不是md后缀。
-=======
-它识别的是markdown后缀，而不是md后缀。<br/>
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
-pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
+<pre><code>startx
+</code></pre>
 </div>
 
 
@@ -140,7 +129,7 @@ pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
   
 
 
-<time datetime="2014-08-27T01:04:21+08:00" pubdate data-updated="true"></time></div>
+<time datetime="2014-12-06T08:31:11+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>

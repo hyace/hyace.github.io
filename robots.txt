@@ -1,4 +1,8 @@
 User-agent: *
 Disallow: 
 
+<<<<<<< HEAD
 Sitemap: http://hyace.github.io/sitemap.xml 
+=======
+Sitemap: http://hyace.github.io/sitemap.xml 
+>>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249

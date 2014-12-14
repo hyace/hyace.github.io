@@ -3,13 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Ubuntu下安装Sublime3的Markdown插件 - Hyace</title>
+	<title>Shell脚本 备忘 - Hyace</title>
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，
-但还是不行，比如vim-instant-markdown(git)，按照要求的各种依赖也都
-安装了，但是用vim打开md文件还是悄然无声。 据说Sublime也可以支持markdown， &hellip;">
+	<meta name="description" content="解释shell 第一行写#!/bin/sh，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出, /bin/sh是指向dash的。 而在sh下有的命令是没有的，所以会提示bad substitution。 字符串操作 获取长度: echo ${#STRING} 获取子字符串： &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -42,11 +40,7 @@
 	<div class="alignright search">
 		<a class="button"></a>
 		<div class="container">
-<<<<<<< HEAD
-			<form action="https://173.194.120.70/search" method="get">
-=======
 			<form action="https://www.google.com/search" method="get">
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
 				<input type="text" name="q" results="0">
 				<input type="hidden" name="q" value="site:hyace.github.io">
 			</form>
@@ -69,11 +63,7 @@
 		
     
 	</div>
-<<<<<<< HEAD
-	<form class="search" action="https://173.194.120.70/search" method="get">
-=======
 	<form class="search" action="https://www.google.com/search" method="get">
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
 		<input class="alignright" type="text" name="q" results="0">
 		<input type="hidden" name="q" value="site:hyace.github.io">
 	</form>
@@ -84,46 +74,86 @@
 		
 	
 	<div id="content" class="inner"><article class="post">
-	<h2 class="title">Ubuntu下安装Sublime3的Markdown插件</h2>
-	<div class="entry-content"><hr />
+	<h2 class="title">Shell脚本 备忘</h2>
+	<div class="entry-content"><p> <strong>解释shell</strong></p>
 
-<p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
-但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
-安装了，但是用vim打开md文件还是悄然无声。
-    据说Sublime也可以支持markdown，所以就在Ubuntu下安装了一个Sublime3.<br/>
-之后就可以安装markdown插件了。<br/>
-    按ctrl+～，输入命令：</p>
+<p>第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出,</p>
 
-<pre><code>import urllib.request,os; pf = 'Package Control.sublime-package';  
-ipp = sublime.installed_packages_path();  
-urllib.request.install_opener( urllib.request.build_opener(    \
-urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf),  \
-'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/'\
-+ pf.replace(' ','%20')).read())  
-</code></pre>
+<p><code>/bin/sh</code>是指向dash的。</p>
 
-<p>   之后可以安ctrl+shift+p，输入命令：</p>
+<p><img src="/images/2014082900.png" alt="1" /></p>
 
-<pre><code>package, 选择install package  
-markdown, 选择markdown preview  
-</code></pre>
-
-<p>重启sublime，打开一个md文件，输入命令：</p>
-
-<pre><code>markdown preview， 选择 preview in browser  
-</code></pre>
-
-<p>这样就可以预览了，但是不是实时的。</p>
+<p>而在sh下有的命令是没有的，所以会提示<code>bad substitution</code>。</p>
 
 <hr />
 
-<p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
-<<<<<<< HEAD
-它识别的是markdown后缀，而不是md后缀。
-=======
-它识别的是markdown后缀，而不是md后缀。<br/>
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
-pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
+<p><strong>字符串操作</strong></p>
+
+<p> 获取长度:</p>
+
+<pre><code>echo ${#STRING}
+</code></pre>
+
+<p> 获取子字符串：</p>
+
+<pre><code>echo ${STRING:m:n} # m，n的头尾都会包含
+</code></pre>
+
+<p> 获取子串索引:</p>
+
+<pre><code>echo `expr index "$string" g`
+</code></pre>
+
+<hr />
+
+<p><strong>流程控制</strong></p>
+
+<p> 才知道原来放括号<code>[</code>也是linux里的可执行程序 = =！，所以后头要空格加参数。</p>
+
+<pre><code>if [ 4 -lt 3 ]
+then
+    echo 4
+else
+    echo 3
+fi
+</code></pre>
+
+<p>参数可以有:eq ge gt le lt ne a o 等</p>
+
+<p> 循环  for:</p>
+
+<pre><code>for var in var1 var2  ...
+do
+    ...
+done
+</code></pre>
+
+<p> 循环  while:</p>
+
+<pre><code>while ...
+    do
+      ...
+done  
+</code></pre>
+
+<hr />
+
+<p><strong>文件包含</strong></p>
+
+<pre><code>source ./SHELL.sh
+. ./SHELL.sh
+</code></pre>
+
+<p>以上两行是等价的，注意第二种写法<code>/</code>不能省略。</p>
+
+<hr />
+
+<p><strong>获取文件路径</strong></p>
+
+<pre><code>$ path=`readlink -f shelltest.sh`
+$ echo $path
+/home/chyace/proj/shell/shelltest.sh  
+</code></pre>
 </div>
 
 
@@ -140,7 +170,7 @@ pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
   
 
 
-<time datetime="2014-08-27T01:04:21+08:00" pubdate data-updated="true"></time></div>
+<time datetime="2014-08-29T19:28:03+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
