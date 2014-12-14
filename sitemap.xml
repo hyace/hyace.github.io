@@ -3,25 +3,8 @@
   
   
   <url>
-<<<<<<< HEAD
     <loc>http://hyace.github.io/blog/2014/12/07/archlinux-zhong-shi-yong-mysql/</loc>
     <lastmod>2014-12-07T09:51:44+08:00</lastmod>
-=======
-    <loc>http://hyace.github.io/blog/2014/12/06/centos7zai-vmwarezhong-ying-yong-ji-lu/</loc>
-    <lastmod>2014-12-06T08:31:11+08:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>http://hyace.github.io/blog/2014/08/29/shelljiao-ben-bei-wang/</loc>
-    <lastmod>2014-08-29T19:28:03+08:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>http://hyace.github.io/blog/2014/08/28/gitshi-guang-ji/</loc>
-    <lastmod>2014-08-28T01:20:26+08:00</lastmod>
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
     <priority>0.8</priority>
   </url>
   
@@ -46,22 +29,14 @@
   
   <url>
     <loc>http://hyace.github.io/</loc>
-<<<<<<< HEAD
     <lastmod>2014-12-15T01:08:57+08:00</lastmod>
-=======
-    <lastmod>2014-12-06T08:50:15+08:00</lastmod>
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hyace.github.io/blog/archives/</loc>
-<<<<<<< HEAD
     <lastmod>2014-12-15T01:08:57+08:00</lastmod>
-=======
-    <lastmod>2014-12-06T08:50:15+08:00</lastmod>
->>>>>>> 28d96f24a326f8a31461ff49408477a1f9d07249
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
