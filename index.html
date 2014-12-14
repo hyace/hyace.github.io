@@ -1,1 +1,349 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Hyace</title>
+	<meta name="author" content="Hyace">
+
+	
+	<meta name="description" content="Archlinux中的官方源用的是MariaDB，现在随着人们对Oracle把控Mysql的不信任，更多人开始用MariaDB。 设置 　　安装很简单，用pacman就行，其中的初始设置步骤如下： &ldquo;` systemctl start mysqld &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hyace</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://173.194.120.70/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:hyace.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="https://173.194.120.70/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:hyace.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/12/07/archlinux-zhong-shi-yong-mysql/">
+		
+			Archlinux 中使用Mysql</a>
+	</h2>
+	<div class="entry-content">
+		<p>Archlinux中的官方源用的是MariaDB，现在随着人们对Oracle把控Mysql的不信任，更多人开始用MariaDB。</p>
+
+<h3>设置</h3>
+
+<p>　　安装很简单，用<code>pacman</code>就行，其中的初始设置步骤如下：</p>
+
+<p>&ldquo;`</p>
+
+<h1>systemctl start mysqld</h1>
+
+<h1>mysql_secure_installation</h1>
+
+<h1>systemctl restart mysqld</h1>
+
+<p>`&#8221;</p>
+
+<p>　　其中的第二步可以设置或修改密码。如果还需要后续的修改可以在<code>/etc/mysql/my.cnf</code>中配置，比如添加<code>skip-networking</code>可以实现禁止网络访问。</p>
+
+<h3>设置远程</h3>
+
+<p>　　在上步设置中设置了允许远程连接，但是账户还需配置，先进入MariaDB，执行命令：</p>
+
+<pre><code>MariaDB [(none)]&gt; grant all privileges on *.* to 'root'@'192.168.125.%' identified by 'q' with grant option;
+</code></pre>
+
+<p>　　其中root是远程连接用的账户名，q为密码，&#8217;%&lsquo;表示通配。</p>
+
+<p>　　需要的话可以设置mysql守护进程开机启动：<code>sudo systemctl enable mysqld</code></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-07T09:51:44+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/08/27/thriftde-an-zhuang-yi-ji-wen-ti/">
+		
+			Thrift的安装以及问题</a>
+	</h2>
+	<div class="entry-content">
+		<p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
+   首先从<a href="http://incubator.apache.org/thrift/download/">这里下载</a>到Thrift的包。<br/>
+   Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。<br/>
+   解压安装包，进入，运行：</p>
+
+<pre><code>./configure  
+make  
+make install  
+</code></pre>
+
+<p>   大体步骤是这样，但是中间遇到了很多问题。最主要的一个是在make的时候，运<br/>
+   行ruby的bunble这一步出错，显示如下：</p>
+
+<pre><code>Bundler could not find compatible versions for gem "bundler":
+  In Gemfile:
+      bundler (~&gt; 1.3.1) ruby
+
+    Current Bundler version:
+      bundler (1.7.2)
+
+This Gemfile requires a different version of Bundler.
+Perhaps you need to update Bundler by running `gem install bundler`?  
+</code></pre>
+
+<p>   Stackoverflow上的答案是<a href="http://stackoverflow.com/questions/12092928/how-to-bundle-install-when-your-gemfile-requires-an-older-version-of-bundler">这样</a>：</p>
+
+<pre><code>% gem install bundler -v '~&gt; 1.0.0'
+Successfully installed bundler-1.0.22
+Then force rubygems to use the version you want (see this post):
+
+% bundle _1.0.22_ install  
+</code></pre>
+
+<p>   这个也是版本不对，只不过不是1.3.1的，但是执行了始终不对。装了1.3.1的<br/>
+bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了，接着make才成<br/>
+功，之后有装回来了。<br/>
+   ps：寻找答案过程中才知道墙内有个网站叫<a href="http://segmentfault.com/">segmentfault</a>,还有个网站叫<br/>
+<a href="http://outofmemory.cn/">outofmemory</a>，方知山寨之伟大～</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T13:33:42+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/08/27/ubuntuxia-an-zhuang-sublime3de-markdowncha-jian/">
+		
+			Ubuntu下安装Sublime3的Markdown插件</a>
+	</h2>
+	<div class="entry-content">
+		<hr />
+
+<p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
+但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
+安装了，但是用vim打开md文件还是悄然无声。
+    据说Sublime也可以支持markdown，所以就在Ubuntu下安装了一个Sublime3.<br/>
+之后就可以安装markdown插件了。<br/>
+    按ctrl+～，输入命令：</p>
+
+<pre><code>import urllib.request,os; pf = 'Package Control.sublime-package';  
+ipp = sublime.installed_packages_path();  
+urllib.request.install_opener( urllib.request.build_opener(    \
+urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf),  \
+'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/'\
++ pf.replace(' ','%20')).read())  
+</code></pre>
+
+<p>   之后可以安ctrl+shift+p，输入命令：</p>
+
+<pre><code>package, 选择install package  
+markdown, 选择markdown preview  
+</code></pre>
+
+<p>重启sublime，打开一个md文件，输入命令：</p>
+
+<pre><code>markdown preview， 选择 preview in browser  
+</code></pre>
+
+<p>这样就可以预览了，但是不是实时的。</p>
+
+<hr />
+
+<p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
+它识别的是markdown后缀，而不是md后缀。
+pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T01:04:21+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/08/26/first-blood/">
+		
+			First Blood</a>
+	</h2>
+	<div class="entry-content">
+		
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-26T00:07:11+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Hyace
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

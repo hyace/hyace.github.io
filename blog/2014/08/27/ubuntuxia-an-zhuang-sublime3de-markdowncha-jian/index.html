@@ -1,0 +1,170 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ubuntu下安装Sublime3的Markdown插件 - Hyace</title>
+	<meta name="author" content="Hyace">
+
+	
+	<meta name="description" content="开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，
+但还是不行，比如vim-instant-markdown(git)，按照要求的各种依赖也都
+安装了，但是用vim打开md文件还是悄然无声。 据说Sublime也可以支持markdown， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hyace</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://173.194.120.70/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:hyace.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="https://173.194.120.70/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:hyace.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Ubuntu下安装Sublime3的Markdown插件</h2>
+	<div class="entry-content"><hr />
+
+<p>   开始打算用vim编辑markdown文件的，搜了下各种解决方案，也尝试了很久，<br/>
+但还是不行，比如vim-instant-markdown(<a href="https://github.com/hyace/vim-instant-markdown">git</a>)，按照要求的各种依赖也都<br/>
+安装了，但是用vim打开md文件还是悄然无声。
+    据说Sublime也可以支持markdown，所以就在Ubuntu下安装了一个Sublime3.<br/>
+之后就可以安装markdown插件了。<br/>
+    按ctrl+～，输入命令：</p>
+
+<pre><code>import urllib.request,os; pf = 'Package Control.sublime-package';  
+ipp = sublime.installed_packages_path();  
+urllib.request.install_opener( urllib.request.build_opener(    \
+urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf),  \
+'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/'\
++ pf.replace(' ','%20')).read())  
+</code></pre>
+
+<p>   之后可以安ctrl+shift+p，输入命令：</p>
+
+<pre><code>package, 选择install package  
+markdown, 选择markdown preview  
+</code></pre>
+
+<p>重启sublime，打开一个md文件，输入命令：</p>
+
+<pre><code>markdown preview， 选择 preview in browser  
+</code></pre>
+
+<p>这样就可以预览了，但是不是实时的。</p>
+
+<hr />
+
+<p>ps: 刚刚在编辑post的时候是用vim编辑的，结果久等的实时窗口终于来了。原来<br/>
+它识别的是markdown后缀，而不是md后缀。
+pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T01:04:21+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Hyace
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
