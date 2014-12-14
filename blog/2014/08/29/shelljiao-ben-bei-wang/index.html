@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Thrift的安装以及问题 - Hyace</title>
+	<title>Shell脚本 备忘 - Hyace</title>
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。 首先从这里下载到Thrift的包。 Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。 解压安装包，进入，运行： ./configure make make &hellip;">
+	<meta name="description" content="解释shell 第一行写#!/bin/sh，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出, /bin/sh是指向dash的。 而在sh下有的命令是没有的，所以会提示bad substitution。 字符串操作 获取长度: echo ${#STRING} 获取子字符串： &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,45 +74,86 @@
 		
 	
 	<div id="content" class="inner"><article class="post">
-	<h2 class="title">Thrift的安装以及问题</h2>
-	<div class="entry-content"><p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
-   首先从<a href="http://incubator.apache.org/thrift/download/">这里下载</a>到Thrift的包。<br/>
-   Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。<br/>
-   解压安装包，进入，运行：</p>
+	<h2 class="title">Shell脚本 备忘</h2>
+	<div class="entry-content"><p> <strong>解释shell</strong></p>
 
-<pre><code>./configure  
-make  
-make install  
+<p>第一行写<code>#!/bin/sh</code>，在Ubuntu下默认执行的不是bash，而是dash，从下图可以看出,</p>
+
+<p><code>/bin/sh</code>是指向dash的。</p>
+
+<p><img src="/images/2014082900.png" alt="1" /></p>
+
+<p>而在sh下有的命令是没有的，所以会提示<code>bad substitution</code>。</p>
+
+<hr />
+
+<p><strong>字符串操作</strong></p>
+
+<p> 获取长度:</p>
+
+<pre><code>echo ${#STRING}
 </code></pre>
 
-<p>   大体步骤是这样，但是中间遇到了很多问题。最主要的一个是在make的时候，运<br/>
-   行ruby的bunble这一步出错，显示如下：</p>
+<p> 获取子字符串：</p>
 
-<pre><code>Bundler could not find compatible versions for gem "bundler":
-  In Gemfile:
-      bundler (~&gt; 1.3.1) ruby
-
-    Current Bundler version:
-      bundler (1.7.2)
-
-This Gemfile requires a different version of Bundler.
-Perhaps you need to update Bundler by running `gem install bundler`?  
+<pre><code>echo ${STRING:m:n} # m，n的头尾都会包含
 </code></pre>
 
-<p>   Stackoverflow上的答案是<a href="http://stackoverflow.com/questions/12092928/how-to-bundle-install-when-your-gemfile-requires-an-older-version-of-bundler">这样</a>：</p>
+<p> 获取子串索引:</p>
 
-<pre><code>% gem install bundler -v '~&gt; 1.0.0'
-Successfully installed bundler-1.0.22
-Then force rubygems to use the version you want (see this post):
-
-% bundle _1.0.22_ install  
+<pre><code>echo `expr index "$string" g`
 </code></pre>
 
-<p>   这个也是版本不对，只不过不是1.3.1的，但是执行了始终不对。装了1.3.1的<br/>
-bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了，接着make才成<br/>
-功，之后有装回来了。<br/>
-   ps：寻找答案过程中才知道墙内有个网站叫<a href="http://segmentfault.com/">segmentfault</a>,还有个网站叫<br/>
-<a href="http://outofmemory.cn/">outofmemory</a>，方知山寨之伟大～</p>
+<hr />
+
+<p><strong>流程控制</strong></p>
+
+<p> 才知道原来放括号<code>[</code>也是linux里的可执行程序 = =！，所以后头要空格加参数。</p>
+
+<pre><code>if [ 4 -lt 3 ]
+then
+    echo 4
+else
+    echo 3
+fi
+</code></pre>
+
+<p>参数可以有:eq ge gt le lt ne a o 等</p>
+
+<p> 循环  for:</p>
+
+<pre><code>for var in var1 var2  ...
+do
+    ...
+done
+</code></pre>
+
+<p> 循环  while:</p>
+
+<pre><code>while ...
+    do
+      ...
+done  
+</code></pre>
+
+<hr />
+
+<p><strong>文件包含</strong></p>
+
+<pre><code>source ./SHELL.sh
+. ./SHELL.sh
+</code></pre>
+
+<p>以上两行是等价的，注意第二种写法<code>/</code>不能省略。</p>
+
+<hr />
+
+<p><strong>获取文件路径</strong></p>
+
+<pre><code>$ path=`readlink -f shelltest.sh`
+$ echo $path
+/home/chyace/proj/shell/shelltest.sh  
+</code></pre>
 </div>
 
 
@@ -129,7 +170,7 @@ bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了�
   
 
 
-<time datetime="2014-08-27T13:33:42+08:00" pubdate data-updated="true"></time></div>
+<time datetime="2014-08-29T19:28:03+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>

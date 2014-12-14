@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Thrift的安装以及问题 - Hyace</title>
+	<title>CentOS7在Vmware中应用记录 - Hyace</title>
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。 首先从这里下载到Thrift的包。 Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。 解压安装包，进入，运行： ./configure make make &hellip;">
+	<meta name="description" content="由于需要搭建基于阿里的Cobar的Mysql集群，所以打算先在虚拟机中实验下效果。 之前因为内存有限，基本上实验是在ArchLinux中的，这次尝试比较大众也比较方便的CentOS。 1.虚拟机迁移问题 昨晚在家里电脑上安装好的CentOS7，选择了带GUI的服务器模式，复制到移动盘里打算在公司用 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,45 +74,45 @@
 		
 	
 	<div id="content" class="inner"><article class="post">
-	<h2 class="title">Thrift的安装以及问题</h2>
-	<div class="entry-content"><p>对Thrift这个框架知之甚少，想先了解下，我自己的习惯是先安装好跑个小demo。<br/>
-   首先从<a href="http://incubator.apache.org/thrift/download/">这里下载</a>到Thrift的包。<br/>
-   Thrift对于安装环境的要求是Unix/Linux系统，Windows要装需要配合cygwin。<br/>
-   解压安装包，进入，运行：</p>
+	<h2 class="title">CentOS7在Vmware中应用记录</h2>
+	<div class="entry-content"><p>由于需要搭建基于阿里的Cobar的Mysql集群，所以打算先在虚拟机中实验下效果。</p>
 
-<pre><code>./configure  
-make  
-make install  
+<p>之前因为内存有限，基本上实验是在ArchLinux中的，这次尝试比较大众也比较方便的CentOS。</p>
+
+<h3>1.虚拟机迁移问题</h3>
+
+<p>昨晚在家里电脑上安装好的CentOS7，选择了带GUI的服务器模式，复制到移动盘里打算在公司用，结果装载不进去，显示：</p>
+
+<blockquote><p>this kernel requires an x86-64 CPU ,but only detected an i686 CPU.
+this processor is unsupported in rhel7.</p></blockquote>
+
+<p>google之发现是BIOS没有开启虚拟化的原因，可以在BIOS设置里选择Intel VirtualTechnology，设置成enable。</p>
+
+<h3>2.设置开机默认不开启GUI</h3>
+
+<p>打开inittab文件设置</p>
+
+<pre><code>#vim /etc/inittab
 </code></pre>
 
-<p>   大体步骤是这样，但是中间遇到了很多问题。最主要的一个是在make的时候，运<br/>
-   行ruby的bunble这一步出错，显示如下：</p>
+<p>在文件末尾加上</p>
 
-<pre><code>Bundler could not find compatible versions for gem "bundler":
-  In Gemfile:
-      bundler (~&gt; 1.3.1) ruby
-
-    Current Bundler version:
-      bundler (1.7.2)
-
-This Gemfile requires a different version of Bundler.
-Perhaps you need to update Bundler by running `gem install bundler`?  
+<pre><code>id:3:initdefault:
 </code></pre>
 
-<p>   Stackoverflow上的答案是<a href="http://stackoverflow.com/questions/12092928/how-to-bundle-install-when-your-gemfile-requires-an-older-version-of-bundler">这样</a>：</p>
+<p>参数3是开机多用户模式，5是图形界面模式。</p>
 
-<pre><code>% gem install bundler -v '~&gt; 1.0.0'
-Successfully installed bundler-1.0.22
-Then force rubygems to use the version you want (see this post):
+<h4>在CentOS7以前是这种方式，但是7改动比较大，放弃了这种配置方式，inittab文件还在，但是已经不起作用了，提示用新的方法设定：</h4>
 
-% bundle _1.0.22_ install  
+<pre><code>ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.targtet    
 </code></pre>
 
-<p>   这个也是版本不对，只不过不是1.3.1的，但是执行了始终不对。装了1.3.1的<br/>
-bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了，接着make才成<br/>
-功，之后有装回来了。<br/>
-   ps：寻找答案过程中才知道墙内有个网站叫<a href="http://segmentfault.com/">segmentfault</a>,还有个网站叫<br/>
-<a href="http://outofmemory.cn/">outofmemory</a>，方知山寨之伟大～</p>
+<p>通过软链完成设置。</p>
+
+<p>如果想在CLI下打开GUI可以输入：</p>
+
+<pre><code>startx
+</code></pre>
 </div>
 
 
@@ -129,7 +129,7 @@ bundler但是默认识别的还是1.7.2的，于是用gem把高版本的删了�
   
 
 
-<time datetime="2014-08-27T13:33:42+08:00" pubdate data-updated="true"></time></div>
+<time datetime="2014-12-06T08:31:11+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
