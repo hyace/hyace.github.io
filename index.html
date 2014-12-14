@@ -7,7 +7,7 @@
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="Archlinux中的官方源用的是MariaDB，现在随着人们对Oracle把控Mysql的不信任，更多人开始用MariaDB。 设置 　　安装很简单，用pacman就行，其中的初始设置步骤如下： &ldquo;` systemctl start mysqld &hellip;">
+	<meta name="description" content="Archlinux中的官方源用的是MariaDB，现在随着人们对Oracle把控Mysql的不信任，更多人开始用MariaDB。 设置 　　安装很简单，用pacman就行，其中的初始设置步骤如下： # systemctl start mysqld # &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -90,15 +90,10 @@
 
 <p>　　安装很简单，用<code>pacman</code>就行，其中的初始设置步骤如下：</p>
 
-<p>&ldquo;`</p>
-
-<h1>systemctl start mysqld</h1>
-
-<h1>mysql_secure_installation</h1>
-
-<h1>systemctl restart mysqld</h1>
-
-<p>`&#8221;</p>
+<pre><code># systemctl start mysqld  
+# mysql_secure_installation  
+# systemctl restart mysqld  
+</code></pre>
 
 <p>　　其中的第二步可以设置或修改密码。如果还需要后续的修改可以在<code>/etc/mysql/my.cnf</code>中配置，比如添加<code>skip-networking</code>可以实现禁止网络访问。</p>
 
