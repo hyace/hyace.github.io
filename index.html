@@ -7,7 +7,7 @@
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="申请了两台Redhat虚拟机做cobar的实验，空空如也什么都得装。原来在3个Arch上实现了3个datanode，想在Redhat上每个3个总共配6个Mysql实例。 复制多个实例 在/var/lib目录下找到Mysql目录，将其复制两份，以端口号作后缀以区分： cp -r /var/lib/ &hellip;">
+	<meta name="description" content="想用Python操作Mysql，但是Redhat中的Python是2.4的，所以需要自己装下2.7 过程比较简单，下载源码包，解压。 运行： ./configure --prefix=/usr/local/python2.7 然后编辑Modules/Setup文件，将如下几行取消注释： SSL &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,6 +74,92 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/12/15/redhatan-zhuang-python2-dot-7-8/">
+		
+			Redhat安装Python2.7.8</a>
+	</h2>
+	<div class="entry-content">
+		<p>想用Python操作Mysql，但是Redhat中的Python是2.4的，所以需要自己装下2.7</p>
+
+<p>过程比较简单，下载源码包，解压。</p>
+
+<p>运行：</p>
+
+<pre><code>./configure --prefix=/usr/local/python2.7 
+</code></pre>
+
+<p>然后编辑<code>Modules/Setup</code>文件，将如下几行取消注释：</p>
+
+<pre><code>SSL=/usr/local/ssl
+_ssl _ssl.c \
+        -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+        -L$(SSL)/lib -lssl -lcrypto
+...
+zlib zlibmodule.c -I$(prefix)/include -L$(exec_prefix)/lib -lz
+</code></pre>
+
+<p>之后运行：</p>
+
+<pre><code>make all &amp;&amp; make install &amp;&amp; make clean &amp;&amp; make distclean
+</code></pre>
+
+<p>之后将<code>/usr/local/python2.7</code>软链到<code>/usr/bin</code>下的python：</p>
+
+<pre><code>ln -sf /usr/local/python2.7 /usr/bin/python
+</code></pre>
+
+<p>一般情况下这样就好了，但是过程中我遇到几个问题：</p>
+
+<p>1、make的时候报错，回显以<code>error: openssl/rsa.h: No such file or directory</code>开头的一坨错误信息</p>
+
+<p>虽然我装了openssl，但是make的时候需要的是有头文件的版本，所以重新安开发版：</p>
+
+<pre><code>yum install openssl-devel
+</code></pre>
+
+<p>同理安装了zlib-devel.</p>
+
+<p>2、装好以后可以进入Python的交互界面，但是很多按键异常，backspace也失灵</p>
+
+<p>这个是readline的问题，可以在安装python前先安装readline：</p>
+
+<pre><code>yum install readline-devel
+</code></pre>
+
+<p>安装结束。</p>
+
+<p>但是有些软件是依赖老版本的Python的，比如yum，可以打开<code>/usr/bin/yum</code>,将第一行的<code>#!/usr/bin/python</code>改为<code>#!/usr/bin/python2.4</code>.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-15T20:27:13+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
