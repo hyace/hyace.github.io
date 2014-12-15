@@ -7,7 +7,7 @@
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="装了CentOS7，结果死活连不上网，一直提示没有可用的网络设备，没工夫处理，以后再说，先用之前装好的CentOS6.4，Mysql安装包又下不下来，只好翻出了之前玩Storm装的Archlinux，总共有Alpha、Beta、Delta三台虚机，里头安装了JDK、MariaDB等等。 准备 &hellip;">
+	<meta name="description" content="申请了两台Redhat虚拟机做cobar的实验，空空如也什么都得装。原来在3个Arch上实现了3个datanode，想在Redhat上每个3个总共配6个Mysql实例。 复制多个实例 在/var/lib目录下找到Mysql目录，将其复制两份，以端口号作后缀以区分： cp -r /var/lib/ &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,6 +74,140 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/12/15/redhatpei-zhi-duo-mysqlshi-li/">
+		
+			Redhat配置多Mysql实例</a>
+	</h2>
+	<div class="entry-content">
+		<p>申请了两台Redhat虚拟机做cobar的实验，空空如也什么都得装。原来在3个Arch上实现了3个datanode，想在Redhat上每个3个总共配6个Mysql实例。</p>
+
+<h3>复制多个实例</h3>
+
+<p>在<code>/var/lib</code>目录下找到Mysql目录，将其复制两份，以端口号作后缀以区分：</p>
+
+<pre><code>cp -r /var/lib/mysql /var/lib/mysql3307
+cp -r /var/lib/mysql /var/lib/mysql3308
+chown -R mysql mysql3307
+chown -R mysql mysql3308
+</code></pre>
+
+<h3>配置参数</h3>
+
+<p>Mysql的配置文件是<code>/etc/my.cnf</code>,但是默认是没有的，在<code>/usr/share/mysql/</code>目录下有5个.cnf后缀的文件，可以根据自己机器内存大小选择一个文件复制为<code>/etc/my.cnf</code>:</p>
+
+<pre><code>/usr/share/mysql/my-small.cnf             64M内存
+/usr/share/mysql/my-medium.cnf            128M内存
+/usr/share/mysql/my-large.cnf             512M内存
+/usr/share/mysql/my-huge.cnf              1-2G内存
+/usr/share/mysql/my-innodb-heavy-4G.cnf   4G内存
+</code></pre>
+
+<p>我将my-huge.cnf复制为my.cnf。</p>
+
+<p>酌情添加以下配置：</p>
+
+<pre><code>[mysqld_multi]
+mysqld          = /usr/bin/mysqld_safe    
+mysqladmin      = /usr/bin/mysqladmin 
+
+[mysqld1]                                          
+port            = 3306                      
+socket          = /var/lib/mysql/mysql.sock   
+pid-file        = /var/lib/mysql/mysql.pid         
+datadir         = /var/lib/mysql 
+user            = mysql               
+skip-external-locking                              
+key_buffer_size = 384M                                
+max_allowed_packet = 1M                                    
+table_open_cache = 512                               
+sort_buffer_size = 2M                                 
+read_buffer_size = 2M                                
+read_rnd_buffer_size = 8M    
+myisam_sort_buffer_size = 64M                        
+thread_cache_size = 8                              
+query_cache_size = 32M                               
+server-id       = 1 
+
+[mysqld2]                                          
+port            = 3307                      
+socket          = /var/lib/mysql3307/mysql.sock   
+pid-file        = /var/lib/mysql3307/mysql.pid         
+datadir         = /var/lib/mysql3307 
+user            = mysql                
+skip-external-locking                              
+key_buffer_size = 384M                                
+max_allowed_packet = 1M                                    
+table_open_cache = 512                               
+sort_buffer_size = 2M                                 
+read_buffer_size = 2M                                
+read_rnd_buffer_size = 8M    
+myisam_sort_buffer_size = 64M                        
+thread_cache_size = 8                              
+query_cache_size = 32M                               
+server-id       = 1
+
+[mysqld3]                                          
+port            = 3308                      
+socket          = /var/lib/mysql3308/mysql.sock   
+pid-file        = /var/lib/mysql3308/mysql.pid         
+datadir         = /var/lib/mysql3308  
+user            = mysql                
+skip-external-locking                              
+key_buffer_size = 384M                                
+max_allowed_packet = 1M                                    
+table_open_cache = 512                               
+sort_buffer_size = 2M                                 
+read_buffer_size = 2M                                
+read_rnd_buffer_size = 8M    
+myisam_sort_buffer_size = 64M                        
+thread_cache_size = 8                              
+query_cache_size = 32M                               
+server-id       = 1
+</code></pre>
+
+<p>要注意其中的mysqld、mysqladmin后配置的目录参数视具体情况而定。</p>
+
+<h3>配置完将3个Mysql都启动：</h3>
+
+<pre><code>mysqld_multi start
+</code></pre>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/041155359205638.png" alt="" /></p>
+
+<p>成功~</p>
+
+<h4>如果不能正常远程访问可以查看下防火墙配置和Mysql是否配置远程访问。</h4>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-15T20:21:02+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
