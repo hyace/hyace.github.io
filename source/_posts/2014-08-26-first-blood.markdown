@@ -6,4 +6,4 @@ comments: true
 categories: 
 ---
 
-![](images/header_background.jpg)
+![](/images/header_background.jpg)
