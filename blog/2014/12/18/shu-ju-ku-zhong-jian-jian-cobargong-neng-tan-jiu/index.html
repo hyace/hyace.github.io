@@ -1,0 +1,369 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>数据库中间件Cobar功能探究 - Hyace</title>
+	<meta name="author" content="Hyace">
+
+	
+	<meta name="description" content="一、 Cobar项目介绍 一）、Cobar背景概述 Cobar是提供分布式数据库服务的中间件，由阿里巴巴中间件团队开发，是阿里巴巴B2B前台应用访问数据库的统一入口，目前已在github上开源。 Cobar的分布式方案是分库和分表，可以按照业务需求将数据库中耦合度较低的表分到不同的分库中， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hyace</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://173.194.120.70/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:hyace.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="https://173.194.120.70/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:hyace.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">数据库中间件Cobar功能探究</h2>
+	<div class="entry-content"><h2>一、    Cobar项目介绍</h2>
+
+<h3>一）、Cobar背景概述</h3>
+
+<p>Cobar是提供分布式数据库服务的中间件，由<a href="http://jm-blog.aliapp.com/">阿里巴巴中间件团队</a>开发，是阿里巴巴B2B前台应用访问数据库的统一入口，目前已在<a href="https://github.com/alibaba/cobar">github</a>上开源。</p>
+
+<p>Cobar的分布式方案是分库和分表，可以按照业务需求将数据库中耦合度较低的表分到不同的分库中，也可以按照具体表的增长速度和数据量水平切分到不同的分库中，Cobar可以实现应用层与物理分库的双向透明，从而实现应用程序访问分布式数据库与访问单库无差别。 Cobar还可以配合MySQL的心跳和binlog实现备机的自动切换，保证数据节点的可靠性，从而实现高可用性。</p>
+
+<p>但Cobar目前的版本是2013年发布的版本1.2.7，由于作者目前的工作重心不在Cobar，所以虽然会继续更新，进度不会很快。</p>
+
+<h3>二）、Cobar架构</h3>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171250029067744.jpg" alt="" /></p>
+
+<p>其中前端是NIO实现的，通过MySQL协议与应用程序交互，后端也是通过MySQL协议与物理数据库交互。</p>
+
+<h3>三）、Cobar的约束</h3>
+
+<p>　　官方文档对Cobar的适用场景和限制都有明确的说明。</p>
+
+<ul>
+<li><p>使用jdbc时，使用mysql-jdbc-5.1以上版本，推荐5.1.6或者5.1.12版本。</p></li>
+<li><p>不支持rewriteBatchedStatements=true参数设置。默认为false</p></li>
+<li><p>不支持useServerPrepStmts=true参数设置。默认为false</p></li>
+<li><p>不支持跨库(数据节点)的关联操作：join、分页、排序、子查询。</p></li>
+<li><p>BLOB, BINARY, VARBINARY字段不能使用。若特殊需求需要这三种字段，禁止使用PreparedStatement的setBlob()或setBinaryStream()方法设置参数。</p></li>
+<li><p>不支持SAVEPOINT操作。</p></li>
+<li><p>不支持SET语句的执行，事务和字符集设置语句除外。</p></li>
+<li><p>对于拆分表（分库表），不能更新已有记录的拆分字段（分库字段）值。</p></li>
+<li><p>只支持MySQL数据节点。</p></li>
+<li><p>对于拆分表，插入操作须给出列名，必须包含拆分字段。
+ </p></li>
+</ul>
+
+
+<h2>二、应用背景</h2>
+
+<p>　　随着业界的逐步去IOE化，分布式MySQL集群成为了一个实现高可用、高性能、可扩展的数据库解决方案。</p>
+
+<p>　　目前业内有很多MySQL集群方案供不同的使用场景选择，比如：</p>
+
+<p>1．双主复制模式，不做数据拆分，可以综合运用keepalived和MySQL实现。</p>
+
+<p>2．如果需要做数据库拆分，要求分布式事务，就可以考虑Cobar。</p>
+
+<p>3．如果需要数据库拆分，不需要分布式事务，需要读写分离，则可以使用同样是阿里开源的中间件项目。</p>
+
+<p>此外还有一些选择，比如MySQL Proxy，使用lua编写，但是官方维护已经终止；MySQL Cluster， 商用版也是收费的，社区版免费但是性能存疑；还有搜狐新近开源的C语言编写的MySQL分布式中间件DBProxy。</p>
+
+<p> </p>
+
+<h2>三、Cobar详细分析</h2>
+
+<p>　　为了对Cobar的功能以及约束有一定的认识，搭建了简单的Cobar测试环境进行实验。实验中共使用了3种数据库方案：</p>
+
+<p>1．MySQL单库方案</p>
+
+<p>2．6节点Cobar方案</p>
+
+<p>3．16节点Cobar方案</p>
+
+<h3>一）、环境搭建</h3>
+
+<p>　　Cobar的release版本中包含配置文件、jar包以及日志文件。</p>
+
+<p>　　搭建Cobar环境需要根据情况配置rule.xml、schema.xml、server.xml。其中schema.xml定义了分库分表的规则以及数据节点和数据源的信息。rule.xml定义了水平分表的路由规则，但是目前的路由算法是Cobar源码中硬编码定的，能够配置的只是节点数等参数，如果需要根据业务需求定义路由算法，需要修改Cobar的源码。server.xml定义Cobar服务的信息，包括其作为一个数据源时的用户名密码等，还定义了包含的schema。</p>
+
+<p>　　bin目录下的文件是用来启动关闭cobar-server的，其中windows下用到的就是startup.bat，该批处理文件需要修改版本号以顺利运行：</p>
+
+<p> <img src="http://images.cnitblog.com/blog/316027/201412/171259534227884.jpg" alt="" /></p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171301162816431.jpg" alt="" /></p>
+
+<p>启动Cobar后可以查看stdout.log，如果没有报异常则启动正常：</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171302109223559.png" alt="" /></p>
+
+<p>Cobar服务监听8066端口，在MySQL命令行和JDBC连接中，8066作为默认端口。</p>
+
+<h3>二）、基本功能测试</h3>
+
+<p>　　本环节测试了基本的MySQL功能，查询，插入等。</p>
+
+<p>　　数据表分配如下：</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171304022345997.jpg" alt="" /></p>
+
+<p>　　在schema.xml中定义了该schema的默认datanode，定义了tb2分布在dbtest2、dbtest3中。默认datanode的作用是存放未指定的表，比如创建tb1，就会默认放在dbtest1中。</p>
+
+<p>　　在rule.xml中为tb2定义了路由用的partitionCount和partitionLength，会按照特定字段进行分库操作。</p>
+
+<h4>1.insert</h4>
+
+<p>insert命令能够按照约定的路由规则插入特定的分库中。</p>
+
+<p>为了简单测试cobar的插入效率，对tb2插入了10W条数据，结果显示要比单机MySQL插入10W条数据稍慢，随后测试16节点cobar插入10W条数据，速度已经和单机插入接近，如果多线程并发执行的话，cobar会有比较大的优势。</p>
+
+<h4>2.select</h4>
+
+<p>对上一步插入的数据进行select操作，每个分库结果会merge在一起但是merge的顺序是不确定的。</p>
+
+<p>同样对cobar中的10W条数据进行查询，结果显示依旧是比单机慢：</p>
+
+<p>Cobar：</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171319590942724.jpg" alt="" /></p>
+
+<p>单机MySQL：</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171320188751868.jpg" alt="" /></p>
+
+<h3>三）、特定功能测试</h3>
+
+<p>　　正常业务中的SQL语句不会仅仅只是insert、select，会用到聚合函数、内外连接、子查询等。官方文档里已经明确说明不支持跨库条件下的这些操作，具体测试如下。</p>
+
+<h4>1、order by</h4>
+
+<p>对数据id排序查询，单库中order by可以正常显示，对cobar进行相同的操作，可以返回结果，每个分库的结果集按照各自的order排序，最后merge的时候并不是全部排序，而是随机联接在一起。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171333116871199.jpg" alt="" /></p>
+
+<h4>2、sum count</h4>
+
+<p>sum常用来合计某些字段，count用来计数，都是比较常用的sql关键字。Cobar能够返回sum/count的结果，但依旧是每个分库各自统计。</p>
+
+<p>用子查询也不能合并分库的sum，这两个sql查出来的结果是相同的。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171334405625251.jpg" alt="" /></p>
+
+<h4>3、join</h4>
+
+<p>join也是极其常用的sql关键字，但是在cobar中如果切分规则不同的两张表进行join，则构成了跨库。Cobar会报错，提示不存在共同分库中的相应表。而如果两张表采用相同的切分字段，相同的路由规则，那么两者是能够join的。
+在测试环境中，tb1不是和tb4相同切分，如果和tb4 join，就会提示不存在dbtest3.tb1。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171336201722883.jpg" alt="" /></p>
+
+<p>而如果和tb4切分相同的tb3和它join就可以实现。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171336348124421.jpg" alt="" /></p>
+
+<h4>4、exists</h4>
+
+<p>exists也可以用，但是也是要考虑在不在一个库中</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171337221567084.jpg" alt="" /></p>
+
+<p>tb3和tb4是按照相同的分片规则分布在数据库中的</p>
+
+<h4>5、子查询</h4>
+
+<p>子查询在跨库情况下也是不能实现的，但是如果能够限制过程中使用的都封闭在同一个分库中，那么子查询是可以成立的。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171338191726371.jpg" alt="" /></p>
+
+<h4>6、存储过程</h4>
+
+<p>在尝试插入10W条数据的时候，单机用到了存储过程，总共用时50余秒，同样语句用到cobar的时候，会显示语法错误，官方提示没有测试过存储过程，不推荐使用。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171345216093627.jpg" alt="" /></p>
+
+<h2>四、应用Cobar的问题及解决方案</h2>
+
+<p>　　
+　　现实中有的业务是比较复杂的，功能实现中使用到的SQL语句也可能是很复杂的，可能遇到的问题如下：</p>
+
+<h3>一）、参数表</h3>
+
+<p>实际业务中会有一些读操作很多而对写要求不多的参数表，会频繁地和其他表进行join，但是cobar不支持跨库join，那么可行的方案就是在每个分库中保留一份参数表，以便每个分库都可以合法操作。</p>
+
+<p>但这会带来两个问题：</p>
+
+<p>1.参数表之间需要union操作，但是每个分库中有一份相同表的结果就是union操作不能够除去重复项。</p>
+
+<p>可以在分表的schema外有一个单库的schema，所有对参数表的增删改操作都限制在该库中，其所产生的变化都同步到每个分库中。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/171347109694438.jpg" alt="" /></p>
+
+<p>2.不同分库的参数表需要同步，那么如何保持参数表的数据一致性也是必须要考虑的问题。</p>
+
+<h3>二）、跨库操作问题</h3>
+
+<h4>1、分库分表问题</h4>
+
+<p>Cobar不支持跨库操作，但是很多操作已经证明只要是封闭在各自分库中就是可以实现的，比如子查询、join等。</p>
+
+<p>那么关键的问题就是如何分库分表，需要按照业务的耦合关系将数据库拆分重组，将不能跨库的操作尽量限制在一个库中。</p>
+
+<p>而且cobar当前的路由算法不一定能够满足复杂业务下的特异性分表方案，所以在有需求的情况下，还需要自定义cobar的路由算法，自定义路由算法需要extends PartitionFunction implements RuleAlgorithm。</p>
+
+<h4>2、sum/count</h4>
+
+<p>但是即使分库分表方案设计完善，还是不能解决sum/count等功能的不完善，需要把每个分库的结果再累加才是需要的结果。</p>
+
+<p>解决这个问题有几个方案：</p>
+
+<p>1.在应用程序中处理，实现比较简单，但是增加了模块间的耦合度，破坏了数据层与应用层的透明。</p>
+
+<p>2.修改cobar源码，识别sql语句，在收到返回信息的时候进行处理。实现难度比较大，但是保持了模块间的低耦合。</p>
+
+<h3>三）、压力问题</h3>
+
+<p>　　本次测试用的是虚拟机，单台虚拟机安装了8个MySQL实例，共实现了16个datanode，虚拟了10W条数据的简单操作，但和生产环境下的硬件条件以及压力情况是有很大区别的，只有在接近生产环境下真正进行了压力测试，才能得出cobar性能好坏的结论。</p>
+
+<h3>四）、事务问题</h3>
+
+<p>　　
+　　分布式数据库要实现事务是比较困难的，很多对数据一致性要求不是很严格的场景都放弃了强一致性，而力求达到最终一致性。Cobar对于单库的事务是完全支持的，但是对于分布式事务不保证强一致性，分布式事务采用两阶段执行，即分为执行阶段和提交阶段。</p>
+
+<p>　　执行阶段：把前端连接上当前事务所使用到的后端连接绑定下来，并执行SQL语句。</p>
+
+<ul>
+<li>提交阶段：将commit命令分发到这些绑定的后端连接中。</li>
+<li>在整个事务过程中，执行阶段出错，可以回滚。提交阶段出错不可以回滚。可以说只要是commit之前，执行出现不一致，cobar会自动回滚。</li>
+</ul>
+
+
+<p>cobar的分布式事务具体做到什么程度，在实际应用前还是需要测试的。</p>
+
+<h3>五）、主从备份问题</h3>
+
+<p>　　
+　　Cobar支持基于MySQL的心跳（heartbeat）来实现主备机切换，当检测到主机心跳异常，会自动或手动切换到备机，但是故障排除后切换回主机需要手动，除非备机心跳也异常。
+　　主从复制的过程中一致性的保证也是需要注意的问题。</p>
+
+<h3>六）、数据迁移问题</h3>
+
+<p>　　当MySQL集群需要扩容时，就可能需要数据迁移，Cobar本身没有对数据迁移有很大的支持，也不支持mysqldump备份，需要备份时，必须在每个物理分库进行dump。数据迁移需要应用程序的DAO和Cobar还有后台迁移程序共同配合完成。
+ </p>
+
+<h2>五、总结</h2>
+
+<p>　　通过对cobar的一系列探究，对其有了一定的认识，但是对于这个拥有800个源文件的顶尖数据库开源项目来说，还远远不够。单就应用来说，binlog同步的问题，事务一致性测试的问题，压力测试的问题，路由算法的问题，数据迁移的问题都是需要深入探讨研究的。</p>
+
+<p>　　Cobar在阿里3年的稳定运行，能够说明它是个成熟的项目，但是同时要意识到，它是契合阿里特定的业务的项目，任何的迁移都是需要论证的；而且在阿里的数据库中间件中，cobar只是上下游中的一环，有可靠的VIP设备，有跨机房同步的数据同步中间件，有先进的分布式消息系统，才能使cobar扬长避短。</p>
+
+<p>　　所以，cobar在实际项目中应用是可行的，但是应用过程中的问题是需要深入思考的。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-18T23:51:44+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Hyace
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
