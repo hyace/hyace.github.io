@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://hyace.github.io/blog/2014/12/20/you-hua-pythondui-mysqlpi-liang-cha-ru-de-xiao-lu/</loc>
+    <lastmod>2014-12-20T13:48:01+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://hyace.github.io/blog/2014/12/18/shu-ju-ku-zhong-jian-jian-cobargong-neng-tan-jiu/</loc>
     <lastmod>2014-12-18T23:51:44+08:00</lastmod>
     <priority>0.8</priority>
@@ -53,14 +59,14 @@
   
   <url>
     <loc>http://hyace.github.io/</loc>
-    <lastmod>2014-12-19T00:00:08+08:00</lastmod>
+    <lastmod>2014-12-20T13:50:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://hyace.github.io/blog/archives/</loc>
-    <lastmod>2014-12-19T00:00:08+08:00</lastmod>
+    <lastmod>2014-12-20T13:50:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -7,7 +7,7 @@
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="一、 Cobar项目介绍 一）、Cobar背景概述 Cobar是提供分布式数据库服务的中间件，由阿里巴巴中间件团队开发，是阿里巴巴B2B前台应用访问数据库的统一入口，目前已在github上开源。 Cobar的分布式方案是分库和分表，可以按照业务需求将数据库中耦合度较低的表分到不同的分库中， &hellip;">
+	<meta name="description" content="之前测试cobar的效率，因为cobar不支持存储过程，所以需要应用程序插入数据，jdbc不灵活，用Python的MySQLdb模块可以实现。 　　开始测试的时候用单条insert语句循环n次，最后commit，结果慢的要死，插一万条用了两分钟，十万条我去吃了个饭回来还在插。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,6 +74,117 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/12/20/you-hua-pythondui-mysqlpi-liang-cha-ru-de-xiao-lu/">
+		
+			优化Python对MySQL批量插入的效率</a>
+	</h2>
+	<div class="entry-content">
+		<p>之前测试cobar的效率，因为cobar不支持存储过程，所以需要应用程序插入数据，jdbc不灵活，用Python的MySQLdb模块可以实现。</p>
+
+<p>　　开始测试的时候用单条insert语句循环n次，最后commit，结果慢的要死，插一万条用了两分钟，十万条我去吃了个饭回来还在插。十万条用存储过程插单库也用了50多秒。</p>
+
+<p>　　从<a href="http://tech.uc.cn/?p=634">UC的这篇文章</a>学习了一些SQL优化的知识。</p>
+
+<p>　　主要有三条：
+1、insert的时候尽量多条一起插，不要单条插。这样可以减少日志量，降低日志刷盘数据量和频率，效率提高很多。</p>
+
+<p>这是文章提供的测试对比：</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/191419430163905.jpg" alt="" /></p>
+
+<p>2、在事务中进行插入。也就是每次部分commit，否则每条insert commit 创建事务的消耗也是不小的。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/191419553293001.jpg" alt="" /></p>
+
+<p>3、 数据插入的时候保持有序。比如Innodb用的是B+树索引，对B+树的插入如果是在索引中间就会需要树节点分裂合并，这也会有一定的消耗。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/191420095488711.jpg" alt="" /></p>
+
+<p>几种方法综合起来的测试数据如下：</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/191420251412408.jpg" alt="" /></p>
+
+<p>　　可以看到1000万以下数据的优化效果是明显的，但是单合并数据+事务的方式在1000万以上性能会有急剧下降，因为此时已经达到了innodb_buffer的上限，随机插入每次需要大量的磁盘操作，性能下降明显。而有序插入在1000万以上时也表现稳定，因为索引定位方便，不需要频繁对磁盘读写，维持较高性能。</p>
+
+<p>据此修改了Python程序：</p>
+
+<pre><code> import MySQLdb
+
+ db=MySQLdb.connect(host='127.0.0.1', user='test', passwd='test', port=8066)
+
+ cur=db.cursor()
+
+ cur.execute('use dbtest')
+
+ cur.execute('truncate table tb5')
+
+ for t in range(0,100):
+
+     sql = 'insert into tb5 (id, val) values '
+
+     for i in range(1,100000):
+            sql += ' ('+`t*100000+i`+', "tb5EXTRA"),'
+     sql += ' ('+`t`+'00000, "tb5EXTRA")'
+
+     cur.execute(sql)
+
+     db.commit()
+
+ cur.close()
+
+ db.close()
+</code></pre>
+
+<p>共插入了1000万条数据，sublime显示用了333.3s，比之前插入10万条都减少了很多，测试插10万条只需要3s。</p>
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/191420588766948.png" alt="" /></p>
+
+<p>15个分库每个60十多万条。</p>
+
+<ul>
+<li>　　过程中有个问题，开始我的sql变量是连接所有插入条目的，但是16节点的cobar在输100万条的时候就连接断开了，而单库直接10条也插不进去，显示mysql连接断开。</li>
+</ul>
+
+
+<p><img src="http://images.cnitblog.com/blog/316027/201412/191421204694678.png" alt="" /></p>
+
+<p>　　这个是sql语句长度限制的问题，在mysql的配置文件中有一个<code>max_allowed_packet = 1M</code>，10万条插入语句已经超过这个限额了，100万条分给16个cobar节点也超过了，所以可以把这个参数调大，或者代码里分段执行sql。</p>
+
+<ul>
+<li>　　还有一个问题是事务大小的问题，<code>innodb_log_buffer_size</code>参数决定这个，超限的话数据会写入磁盘，从而导致效率下滑，所以事务提交也不能攒得太大。</li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-20T13:48:01+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
