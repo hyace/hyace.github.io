@@ -1,0 +1,278 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Java备份恢复MySQL数据库 - Hyace</title>
+	<meta name="author" content="Hyace">
+
+	
+	<meta name="description" content="　　项目中需要在数据清算前对数据库进行备份，清算产生问题时对数据库进行恢复，要在程序里实现。 　　一般备份MySQL用dump就可以了，如果需要在Java程序里实现，应该是调用系统命令就可以，也就是说用java里的Runtime就可以实现。 备份 第一版代码 Runtime rt = &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hyace</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://173.194.120.70/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:hyace.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="https://173.194.120.70/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:hyace.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Java备份恢复MySQL数据库</h2>
+	<div class="entry-content"><p>　　项目中需要在数据清算前对数据库进行备份，清算产生问题时对数据库进行恢复，要在程序里实现。</p>
+
+<p>　　一般备份MySQL用dump就可以了，如果需要在Java程序里实现，应该是调用系统命令就可以，也就是说用java里的<code>Runtime</code>就可以实现。</p>
+
+<h4>备份</h4>
+
+<h5>第一版代码</h5>
+
+<pre><code>Runtime rt = Runtime.getRuntime();
+Process pro = rt.exec("mysqldump -uUSER -pPWD DATABASE&gt; PATH/file.sql");
+</code></pre>
+
+<p>但是结果报错了。</p>
+
+<p>其中有了两个问题：</p>
+
+<ol>
+<li>mysqldump不一定在环境变量中，即使在，有的时候这样执行也是执行不了的。</li>
+<li>这种命令执行方式java不能识别重定向符 >。</li>
+</ol>
+
+
+<p>修改如下：</p>
+
+<pre><code>    String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString();
+    Process pro = rt.exec("mysqldump -uUSER -pPWD --default-character=gbk -rPATH" + time + ".sql DATABASE");
+    BufferedReader br = new BufferedReader(new InputStreamReader(pro.getErrorStream()));
+    String errorLine = null;
+    while ((errorLine = br.readLine()) != null) {
+        System.out.println(errorLine);
+    }
+    br.close();  
+</code></pre>
+
+<p>其中<code>exec</code>的参数还可以写成字符串数组，能够解决不识别<code>mysqldump</code>的问题。另外，<code>Process</code>的waitFor方法会在执行后返回int值，如果为0则执行正常。</p>
+
+<pre><code>@Test
+public void backupDB() throws Exception {
+    Runtime rt = Runtime.getRuntime();
+    Process pro = rt.exec(getCommand());
+    BufferedReader br = new BufferedReader(new InputStreamReader(pro.getErrorStream()));
+    String errorLine = null;
+    while ((errorLine = br.readLine()) != null) {
+        System.out.println(errorLine);
+    }
+    br.close();
+    int result = pro.waitFor();
+    if (result != 0) {
+        throw new Exception("数据库备份失败！ ");
+    }
+}  
+
+
+private String[] getCommand() {
+    String[] cmd = new String[3];
+    String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString();
+    String os = System.getProperties().getProperty("os.name");
+    if (os.startsWith("Win")) {
+        cmd[0] = "cmd.exe";
+        cmd[1] = "/c";
+    } else {
+        cmd[0] = "/bin/sh";
+        cmd[1] = "-c";
+    }
+    StringBuilder arg = new StringBuilder();
+    arg.append("mysqldump ");
+    arg.append("-uUSR ");
+    arg.append("-pPWD ");
+    arg.append("--default-character=gbk ");
+    arg.append("--skip-opt ");
+    arg.append("--add-drop-database ");
+    arg.append("--routines ");
+    arg.append("--triggers ");
+    arg.append("--compress ");
+    arg.append("-r");
+    arg.append("PATH");
+    arg.append(time);
+    arg.append(".sql ");
+    arg.append("--databases DATABASE");
+    cmd[2] = arg.toString();
+    return cmd;
+}  
+</code></pre>
+
+<h4>说明</h4>
+
+<p>&ndash;default-character=gbk    指定字符集</p>
+
+<p>&ndash;skip-opt   禁用将结果存入内存，否则大表会出现问题</p>
+
+<p>&ndash;add-drop-database   在CREATE DATABASE之前加 drop语句</p>
+
+<p>&ndash;routines   转储数据库中的函数和程序</p>
+
+<p>&ndash;compress   压缩传输的信息</p>
+
+<h3>恢复</h3>
+
+<p>恢复是用<code>mysql</code>命令，方式和备份很像</p>
+
+<pre><code>@Test
+public void restoreDB() throws Exception {
+    Runtime rt = Runtime.getRuntime();
+    Process pro = rt.exec(getCommand());
+    BufferedReader br = new BufferedReader(new InputStreamReader(pro.getErrorStream()));
+    String errorLine = null;
+    while ((errorLine = br.readLine()) != null) {
+        System.out.println(errorLine);
+    }
+    br.close();
+    int result = pro.waitFor();
+    if (result != 0) {
+        throw new Exception("数据库恢复失败！ ");
+    }
+}
+private String[] getCommand() {
+    String[] cmd = new String[3];
+    String os = System.getProperties().getProperty("os.name");
+    if (os.startsWith("Win")) {
+        cmd[0] = "cmd.exe";
+        cmd[1] = "/c";
+    } else {
+        cmd[0] = "/bin/sh";
+        cmd[1] = "-c";
+    }
+    StringBuilder arg = new StringBuilder();
+    arg.append("mysql ");
+    arg.append("-uUSR ");
+    arg.append("-pPWD ");
+    arg.append("&lt; ");
+    arg.append(getFile());
+    cmd[2] = arg.toString();
+    return cmd;
+}
+private String getFile() {
+    File dir = new File("PATH");
+    String[] files = dir.list(new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+            return name.endsWith(".sql");
+        }
+    });
+    return Collections.max(Arrays.asList(files));
+}  
+</code></pre>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-19T18:04:20+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    Hyace
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
