@@ -1,0 +1,189 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>weblogic安装 - Hyace</title>
+	<meta name="author" content="Hyace">
+
+	
+	<meta name="description" content="安装 我用的是weblogic的安装jar包： java -jar wls_121200.jar 配置 *%WL_HOME%是weblogic的安装目录 配置域 用户 ： weblogic
+密码 ： @weblogic 服务器名 ： WeblogicServer MySQL驱动修改 1、删除% &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hyace" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hyace</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://173.194.120.70/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:hyace.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="https://173.194.120.70/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:hyace.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Weblogic安装</h2>
+	<div class="entry-content"><h3>安装</h3>
+
+<p>我用的是weblogic的安装jar包：</p>
+
+<pre><code>java -jar wls_121200.jar
+</code></pre>
+
+<h3>配置</h3>
+
+<p>*%WL_HOME%是weblogic的安装目录</p>
+
+<h4>配置域</h4>
+
+<p>用户 ： weblogic
+密码 ： @weblogic</p>
+
+<p>服务器名 ： WeblogicServer</p>
+
+<h4>MySQL驱动修改</h4>
+
+<p>1、删除<code>%WL_HOME%\wlserver\server\lib</code>与<code>%WL_HOME%\wlserver\server\ext\jdbc\mysql</code>下的lib <code>mysql-connector-java-xxx.jar</code></p>
+
+<p>2、将自己需要的版本<code>mysql-connector-java-yyy.jar</code>拷贝至<code>%WL_HOME%\wlserver\common\lib</code>下</p>
+
+<p>3、修改<code>%WL_HOME%\wlserver\common\bin\commEnv.cmd</code></p>
+
+<p> 在SET WEBLOGIC_CLASSPATH变量后加入</p>
+
+<pre><code>%WL_HOME%/common/lib/mysql-connector-java-yyy.jar
+</code></pre>
+
+<h4>启动参数修改</h4>
+
+<p>打开<code>%WL_HOME%\user_projects\domains\base_domain\bin</code>，编辑文件<code>setDomainEnv</code>:</p>
+
+<pre><code>set MEM_PERM_SIZE_64BIT=-XX:PermSize=512m
+set MEM_MAX_PERM_SIZE_64BIT=-XX:MaxPermSize=512m
+</code></pre>
+
+<h4>配置MQ地址</h4>
+
+<p>同样在上述文件中找到<code>SET JAVA_OPTIONS=</code>在后面添加参数：</p>
+
+<pre><code>-Dserver.rabbitmq.host=[IP_SERVER]
+-Dclient.rabbitmq.host=[IP_CLIENT]
+</code></pre>
+
+<h3>部署</h3>
+
+<pre><code>[IP_WEBLOGIC]:[PORT]/console 打开控制台
+</code></pre>
+
+<p>在<code>服务-&gt;数据源</code>中添加数据源</p>
+
+<p>在<code>部署</code>中添加项目</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-31T21:43:55+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    Hyace
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

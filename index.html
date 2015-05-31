@@ -7,7 +7,8 @@
 	<meta name="author" content="Hyace">
 
 	
-	<meta name="description" content="　　项目中需要在数据清算前对数据库进行备份，清算产生问题时对数据库进行恢复，要在程序里实现。 　　一般备份MySQL用dump就可以了，如果需要在Java程序里实现，应该是调用系统命令就可以，也就是说用java里的Runtime就可以实现。 备份 第一版代码 Runtime rt = &hellip;">
+	<meta name="description" content="安装 我用的是weblogic的安装jar包： java -jar wls_121200.jar 配置 *%WL_HOME%是weblogic的安装目录 配置域 用户 ： weblogic
+密码 ： @weblogic 服务器名 ： WeblogicServer MySQL驱动修改 1、删除% &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,6 +75,97 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/05/31/weblogican-zhuang/">
+		
+			Weblogic安装</a>
+	</h2>
+	<div class="entry-content">
+		<h3>安装</h3>
+
+<p>我用的是weblogic的安装jar包：</p>
+
+<pre><code>java -jar wls_121200.jar
+</code></pre>
+
+<h3>配置</h3>
+
+<p>*%WL_HOME%是weblogic的安装目录</p>
+
+<h4>配置域</h4>
+
+<p>用户 ： weblogic
+密码 ： @weblogic</p>
+
+<p>服务器名 ： WeblogicServer</p>
+
+<h4>MySQL驱动修改</h4>
+
+<p>1、删除<code>%WL_HOME%\wlserver\server\lib</code>与<code>%WL_HOME%\wlserver\server\ext\jdbc\mysql</code>下的lib <code>mysql-connector-java-xxx.jar</code></p>
+
+<p>2、将自己需要的版本<code>mysql-connector-java-yyy.jar</code>拷贝至<code>%WL_HOME%\wlserver\common\lib</code>下</p>
+
+<p>3、修改<code>%WL_HOME%\wlserver\common\bin\commEnv.cmd</code></p>
+
+<p> 在SET WEBLOGIC_CLASSPATH变量后加入</p>
+
+<pre><code>%WL_HOME%/common/lib/mysql-connector-java-yyy.jar
+</code></pre>
+
+<h4>启动参数修改</h4>
+
+<p>打开<code>%WL_HOME%\user_projects\domains\base_domain\bin</code>，编辑文件<code>setDomainEnv</code>:</p>
+
+<pre><code>set MEM_PERM_SIZE_64BIT=-XX:PermSize=512m
+set MEM_MAX_PERM_SIZE_64BIT=-XX:MaxPermSize=512m
+</code></pre>
+
+<h4>配置MQ地址</h4>
+
+<p>同样在上述文件中找到<code>SET JAVA_OPTIONS=</code>在后面添加参数：</p>
+
+<pre><code>-Dserver.rabbitmq.host=[IP_SERVER]
+-Dclient.rabbitmq.host=[IP_CLIENT]
+</code></pre>
+
+<h3>部署</h3>
+
+<pre><code>[IP_WEBLOGIC]:[PORT]/console 打开控制台
+</code></pre>
+
+<p>在<code>服务-&gt;数据源</code>中添加数据源</p>
+
+<p>在<code>部署</code>中添加项目</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-31T21:43:55+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -1199,45 +1291,10 @@ pss: 话说这个主题和配色好丑啊，有空了再弄吧。</p>
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/08/26/first-blood/">
-		
-			First Blood</a>
-	</h2>
-	<div class="entry-content">
-		<p><img src="/images/header_background.jpg" alt="" /></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-26T00:07:11+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
 <nav id="pagenavi">
     
+    
+        <a href="/posts/2" class="next">Next</a>
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav>

@@ -4,7 +4,7 @@
   <title><![CDATA[Hyace]]></title>
   <link href="http://hyace.github.io/atom.xml" rel="self"/>
   <link href="http://hyace.github.io/"/>
-  <updated>2015-04-19T18:13:17+08:00</updated>
+  <updated>2015-05-31T21:52:58+08:00</updated>
   <id>http://hyace.github.io/</id>
   <author>
     <name><![CDATA[Hyace]]></name>
@@ -12,6 +12,69 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[weblogic安装]]></title>
+    <link href="http://hyace.github.io/blog/2015/05/31/weblogican-zhuang/"/>
+    <updated>2015-05-31T21:43:55+08:00</updated>
+    <id>http://hyace.github.io/blog/2015/05/31/weblogican-zhuang</id>
+    <content type="html"><![CDATA[<h3>安装</h3>
+
+<p>我用的是weblogic的安装jar包：</p>
+
+<pre><code>java -jar wls_121200.jar
+</code></pre>
+
+<h3>配置</h3>
+
+<p>*%WL_HOME%是weblogic的安装目录</p>
+
+<h4>配置域</h4>
+
+<p>用户 ： weblogic
+密码 ： @weblogic</p>
+
+<p>服务器名 ： WeblogicServer</p>
+
+<h4>MySQL驱动修改</h4>
+
+<p>1、删除<code>%WL_HOME%\wlserver\server\lib</code>与<code>%WL_HOME%\wlserver\server\ext\jdbc\mysql</code>下的lib <code>mysql-connector-java-xxx.jar</code></p>
+
+<p>2、将自己需要的版本<code>mysql-connector-java-yyy.jar</code>拷贝至<code>%WL_HOME%\wlserver\common\lib</code>下</p>
+
+<p>3、修改<code>%WL_HOME%\wlserver\common\bin\commEnv.cmd</code></p>
+
+<p> 在SET WEBLOGIC_CLASSPATH变量后加入</p>
+
+<pre><code>%WL_HOME%/common/lib/mysql-connector-java-yyy.jar
+</code></pre>
+
+<h4>启动参数修改</h4>
+
+<p>打开<code>%WL_HOME%\user_projects\domains\base_domain\bin</code>，编辑文件<code>setDomainEnv</code>:</p>
+
+<pre><code>set MEM_PERM_SIZE_64BIT=-XX:PermSize=512m
+set MEM_MAX_PERM_SIZE_64BIT=-XX:MaxPermSize=512m
+</code></pre>
+
+<h4>配置MQ地址</h4>
+
+<p>同样在上述文件中找到<code>SET JAVA_OPTIONS=</code>在后面添加参数：</p>
+
+<pre><code>-Dserver.rabbitmq.host=[IP_SERVER]
+-Dclient.rabbitmq.host=[IP_CLIENT]
+</code></pre>
+
+<h3>部署</h3>
+
+<pre><code>[IP_WEBLOGIC]:[PORT]/console 打开控制台
+</code></pre>
+
+<p>在<code>服务-&gt;数据源</code>中添加数据源</p>
+
+<p>在<code>部署</code>中添加项目</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java备份恢复MySQL数据库]]></title>
